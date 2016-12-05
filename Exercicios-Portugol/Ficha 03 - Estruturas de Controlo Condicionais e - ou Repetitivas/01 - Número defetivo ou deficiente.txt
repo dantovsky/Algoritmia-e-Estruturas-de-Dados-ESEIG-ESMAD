@@ -1,0 +1,30 @@
+// indicar se um dado número é defetivo(deficiente)
+// Um número defetivo (ou deficiente) é aquele em que 
+// a soma dos seus divisores próprios é menor do que esse número.
+inicio 
+inteiro num, i, soma
+texto opcao
+soma <- 0
+
+repete
+escrever "\nInsira um número: "
+ler num
+
+para i de 1 ate num / 2
+	se num % i = 0 entao
+		soma <- soma + i
+	fim se
+proximo
+
+se soma < num entao
+    escrever "O número ", num, " é defetivo. Soma dos divisores = ", soma
+senao
+    escrever "O número ", num, " não é defetivo. Soma dos divisores = ", soma
+fim se
+
+soma <- 0 // zerando(reinicializando) a variável soma 
+escrever "\nDeseja verificar outro número? (S/N) "
+ler opcao
+ate opcao = "n" ou opcao = "N"
+fim
+

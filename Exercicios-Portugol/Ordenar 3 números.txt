@@ -1,0 +1,11 @@
+// Algoritmo que lê 3 números e os ordena por ordem crescente
+inicio
+inteiro n1, n2, n3
+
+ler n1
+ler n2
+ler n3
+
+se n1 < n2 E n1 < n3 entao // número 1 é o maior
+
+fim

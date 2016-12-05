@@ -1,0 +1,83 @@
+﻿// Programa que cria um menu para uma fila de impressão: 
+// tira ticket, faz atendimento e mostra o estado atual da fila
+
+inicio
+    inteiro op , i , conta_zero <- 0// , conta_um <- 0
+    inteiro ticket [ 20 ] <- {0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0}
+    repete//até o utilizador digitar 0
+        escrever "\n\n\t~ MENU ~ \n"
+        escrever "1- Tirar Ticket\n"
+        escrever "2 -Atendimento\n"
+        escrever "3 -Estado da Fila de Espera\n"
+        escrever "0 -Sair\n\n"
+        
+        escrever "Escolher opção: "
+        ler op
+        
+        escolhe op
+            caso 1:// Tirar ticket
+                // vai assinar com "1" a primeira posição que encontrar como "0"
+                // caso chegue ao final do array e sejam todos "1", ou seja, fila cheia
+                // então retornará um aviso de fila cheia
+                i <- 0
+                enquanto ticket [ i ] =/= 0 e i < 20 faz
+                    i <- i + 1
+                fim enquanto
+                se i = 20 entao
+                    escrever "\n**************************\n"
+                    escrever "*\t Fila Cheia\t *\n"
+                    escrever "**************************\n"
+                senao
+                    ticket [ i ] <- 1
+                    escrever "\n\n Ticket Nº" , i + 1 , "\n\n"
+                fim se
+            caso 2:// Atendimento
+                // O primeiro da fila será atendido e portanto todos os outros passam uma posição à frente
+                se ticket [ 0 ] = 0 entao
+                    escrever "\n*********************************************************\n"
+                    escrever "*\tNão há clientes para serem atendidos na fila.\t*\n"
+                    escrever "*********************************************************\n"
+                senao
+                    escrever "A realizar operação de atendimento . . ."
+                    ticket [ 0 ] <- 0
+                    
+                    //teste
+                    // escrever "\nAtendimento do cliente nº 1\nEstado atual do atendimento: "
+                    // para i de 0 ate 19
+                    //     escrever ticket [ i ] , " "
+                    // proximo
+                    // escrever "\nCliente atendido."
+                    
+                    para i de 0 ate 18
+                        se ticket [ i + 1 ] = 1 entao
+                            ticket [ i ] <- ticket [ i + 1 ]
+                            ticket [ i + 1 ] <- 0
+                        fim se
+                    proximo
+                    
+                    // escrever "\nEstado atual da fila: "
+                    // para i de 0 ate 19
+                    //     escrever ticket [ i ] , " "
+                    // proximo
+                fim se
+            caso 3:// Estado da fila de espera
+                escrever "\nEstado da fila de espera:\n"
+                // conta_um <- 0
+                conta_zero <- 0
+                para i de 0 ate 19
+                    se ticket [ i ] = 0 entao
+                        conta_zero <- conta_zero + 1
+                        // senao
+                        //     conta_um <- conta_um + 1
+                    fim se
+                    escrever ticket [ i ] , " "
+                proximo
+                escrever "\nLugares ocupados: " , 20 - conta_zero//conta_um
+                escrever "\nLugares livres: " , conta_zero
+        fim escolhe
+    ate op = 0
+    escrever "\n******************************************\n"
+    escrever "*\t Final do serviço de impressão\t *\n"
+    escrever "******************************************\n"
+fim
+

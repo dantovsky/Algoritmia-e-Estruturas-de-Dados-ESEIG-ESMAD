@@ -1,0 +1,33 @@
+﻿inicio 
+inteiro dia, mes, ano
+
+escrever "Insira o dia: "
+ler dia
+
+repete // Utilizador precisa inserir um mês corretamente
+escrever "Insira o mês: "
+ler mes
+ate mes > 0 e mes <= 12
+
+escrever "Insira o ano: "
+ler ano
+
+escrever "Data em extensão: ", dia, " de "
+
+escolhe mes
+    caso 1: escrever "Janeiro"
+    caso 2: escrever "Fevereiro"
+    caso 3: escrever "Março"
+    caso 4: escrever "Abril"
+    caso 5: escrever "Maio"
+    caso 6: escrever  "Junho"
+    caso 7: escrever "Julho"
+    caso 8: escrever "Agosto"
+    caso 9: escrever "Setembro"
+    caso 10: escrever "Outubro"
+    caso 11: escrever "Novembro"
+    caso 12: escrever "Dezembro"
+fim escolhe    
+
+escrever " de ", ano
+fim

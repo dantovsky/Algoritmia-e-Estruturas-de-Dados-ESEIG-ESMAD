@@ -1,0 +1,24 @@
+// Programa que verifica se um número é primo ou não
+inicio
+inteiro num, cont, conta_zero
+conta_zero <- 0
+// Poderia ser definida uma variável (logico primo) por exemplo, 
+// inicializar como verdadeiro e atribuir como falso se alguma divisão der resto 0
+
+escrever "Insira um número para saber se é primo: "
+ler num
+
+// *********************************
+para cont de 2 ate (num - 1)
+    se num % cont = 0 entao
+        conta_zero <- conta_zero + 1
+    fim se
+proximo
+// *********************************
+se conta_zero > 0 entao
+    escrever "Não primo!"
+senao
+        escrever "PRIMOOOOOOOOOOO!"
+fim se
+    
+fim

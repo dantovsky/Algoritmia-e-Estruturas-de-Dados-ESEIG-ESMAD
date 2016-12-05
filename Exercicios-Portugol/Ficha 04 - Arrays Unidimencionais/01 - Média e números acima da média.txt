@@ -1,0 +1,27 @@
+inicio
+
+// Recebe array com 10 números e no final indica quantos estão acima da média.
+
+// Variváveis
+inteiro i, contador
+
+// num[10] array com 10 números
+// contador irá contar os números acima da média
+real media, soma, num[10]
+
+para i de 0 ate 9
+    escrever "Indique o ", (i + 1), "º número : "
+    ler num[i]
+    soma <- soma + num[i]
+proximo
+
+media <- soma / 10
+
+para i de 0 ate 9
+    se num[i] > media entao
+        contador <- contador + 1
+    fim se
+proximo
+
+escrever "Média = ", media, "\nQuantos números acima da média? :: ", contador
+fim

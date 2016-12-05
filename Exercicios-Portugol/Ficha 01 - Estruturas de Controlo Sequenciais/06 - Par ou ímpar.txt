@@ -1,0 +1,17 @@
+Ficha 01
+
+
+6. Escreva um algoritmo que determine se um dado número é par ou ímpar.// determinar se um número é par ou ímpar
+
+Inicio
+    inteiro num
+    Escrever "Escreva o número: "
+    Ler num
+    num <- num % 2    // fica com o resto da divisão
+    Se num = 0 Entao
+        Escrever "O número é par"
+    Senao
+        Escrever "O número é ímpar"
+    Fim Se
+    
+Fim

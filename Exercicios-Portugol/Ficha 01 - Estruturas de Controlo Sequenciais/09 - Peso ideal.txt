@@ -1,0 +1,27 @@
+Ficha 01
+
+// 09 - Simulador de peso ideal. Peso ideal = (h-100) - (h-150)/k
+// Sendo k = 2 para o género feminino e k=4 para o género masculino; h é a altura em cm
+
+inicio
+real altura_cm, peso_ideal
+inteiro k // será o genero = 2 ou 4 (feminino ou measculino)
+texto genero
+
+escrever "Qual o seu sexo(F/M): "
+ler genero
+escrever "Qual a tua altura(cm): "
+ler altura_cm
+
+// atribuir o valor de k
+se genero = "f" entao
+    k <- 2
+senao
+    k <- 4
+fim se
+
+// cálculo do peso ideal
+peso_ideal <- (altura_cm - 100) - (altura_cm - 150)/k
+
+escrever "Peso ideal: ", peso_ideal
+fim

@@ -1,0 +1,38 @@
+// 3. Nomes e pontuação(0 a 20) de 10 participantes num concurso de programação.
+// Gera outro array apenas com as posições positivas(nome e pontuação)
+
+inicio
+inteiro i, i_novo, pontuacao[10], positivo[10]
+i_novo <- 0
+texto nome[10], nome_positivo[10]
+
+para i de 0 ate 9
+
+	escrever "Participante: "
+	ler nome[i]
+	
+	escrever "Pontuação: "
+    ler pontuacao[i]
+	
+proximo
+
+// construir novo array com as pontuacoes positivas
+para i de 0 ate 9
+    se pontuacao[i] >= 10 entao
+        positivo[i_novo] <- pontuacao[i]
+		nome_positivo[i_novo] <- nome[i]
+        i_novo <- i_novo + 1
+    fim se
+proximo
+
+escrever "Pontuações positivas: "
+se i_novo = 0 entao
+    escrever "...não tem participantes com pontuação positiva. "
+fim se
+
+escrever "\n"
+
+para i de 0 ate i_novo - 1
+    escrever "Nome: ", nome_positivo[i], "\t ... Nota: ", positivo[i], "\n "
+proximo
+fim

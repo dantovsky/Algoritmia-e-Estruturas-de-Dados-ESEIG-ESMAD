@@ -1,0 +1,22 @@
+Ficha 01
+
+2. Escreva um algoritmo que calcule a taxa de inflação de um produto, dado o seu
+custo actual e o custo no ano anterior.
+ Exemplo: custo atual = 1150
+ Custo anterior = 1000
+ Taxa inflação = 15%
+// 2. dado o custo atual e anterior, calcula a taxa de inflação
+  
+// taxa = (atual - anterior) / anterior
+Inicio
+real atual, anterior, taxa
+
+Escrever "Custo atual: "
+Ler atual
+Escrever "Custo anterior: "
+Ler anterior
+
+taxa <- (atual - anterior)/anterior
+
+Escrever "Taxa inflação = ", taxa * 100, "%"
+Fim

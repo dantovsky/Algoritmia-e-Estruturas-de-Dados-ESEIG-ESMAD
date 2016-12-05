@@ -1,0 +1,22 @@
+Ficha 01
+
+7. Escreva um algoritmo que permita classificar um triângulo lendo a medida dos 3
+lados
+(equilátero: todos iguais; isósceles: dois iguais; escaleno: todos diferentes)
+// Lê a medida dos lados de um triângulo e o classifica:
+// (equilátero: todos iguais; isósceles: dois iguais; escaleno: todos diferentes)
+
+INICIO
+    inteiro lado1, lado2, lado3
+    LER lado1, lado2, lado3
+    
+    SE lado1 = lado2 E lado2 = lado3 ENTAO
+        ESCREVER "triângulo equilátero"
+    SENAO
+        SE lado1 = lado2 OU lado1 = lado3 OU lado2 = lado3 ENTAO
+            ESCREVER "triângulo isósceles"
+        SENAO
+            ESCREVER "triângulo escaleno"
+        FIM SE
+    FIM SE
+FIM

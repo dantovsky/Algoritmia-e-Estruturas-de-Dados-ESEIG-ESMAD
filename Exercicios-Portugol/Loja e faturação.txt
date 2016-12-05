@@ -1,0 +1,32 @@
+inicio
+// Programa que recebe a designacao de 12 lojas e a sua faturacao
+// retorna a loja com menor faturacao e o seu nome
+
+// variáveis arrays
+texto loja[11]
+inteiro faturacao[11]
+
+// variáveis simples
+inteiro i, pos, menor // menor faturacao
+
+escrever "********************\n"
+escrever "* LOJA E FATURAÇÂO *\n"
+escrever "********************\n"
+para i de 0 ate 2
+    escrever "\nLoja : "
+    ler loja[i]
+    Escrever "Faturação da loja ", loja[i], ": " //i + 1
+    ler faturacao[i] 
+proximo
+menor <- faturacao[0]
+
+// Verificar qual a menor faturação e a relacionar os índeces entre nome da loja e a sua faturação
+para i de 1 ate 2
+    se faturacao[i] < menor entao
+        menor <- faturacao[i]
+        pos <- i
+    fim se
+proximo
+
+escrever "\nLoja com menor faturação: ", loja[pos], "\nFaturação: ", menor
+fim

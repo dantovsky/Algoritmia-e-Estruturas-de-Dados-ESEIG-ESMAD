@@ -1,0 +1,19 @@
+// Comissão de uma venda
+inicio
+inteiro valor
+real comissao
+
+escrever "Qual o valor da venda?"
+ler valor
+
+se valor >= 1000 e valor <= 5000 entao
+	comissao <- valor * 0.05
+senao
+	se valor > 5000 entao
+		comissao <- 500 + (valor - 5000) * 0.05
+	fim se
+fim se
+
+escrever "Valor de venda: ", valor
+escrever "\nComissão: ", comissao
+fim

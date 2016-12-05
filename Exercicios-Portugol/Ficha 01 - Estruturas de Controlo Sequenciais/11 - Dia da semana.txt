@@ -1,0 +1,21 @@
+// Ficha 01
+
+// 11 - Recebe um número e devolve o dia da semana correspondente
+inicio
+inteiro num // vai ser correspondente ao dia da semana
+
+escrever "Insira um valor entre 1 e 7: "
+ler num
+
+escolhe num
+    caso 1: escrever "Segunda-feira"
+    caso 2: escrever "Terça-feira"
+    caso 3: escrever "Quarta-feira"
+    caso 4: escrever "Quinta-feira"
+    caso 5: escrever "Sexta-feira"
+    caso 6: escrever "Sábado"
+    caso 7: escrever "Domingo"
+    defeito:
+        escrever "Dia inválido!"
+fim escolhe
+fim

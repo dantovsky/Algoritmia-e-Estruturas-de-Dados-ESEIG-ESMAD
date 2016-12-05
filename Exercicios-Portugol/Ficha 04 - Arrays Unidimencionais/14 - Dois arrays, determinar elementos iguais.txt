@@ -1,0 +1,29 @@
+// 14 - Dois arrays, determinar elementos iguais
+// Versão 22:55 25/10/2015
+
+inicio
+    inteiro lista_a [ 8 ] , lista_b [ 8 ] , i , aux , cont
+    
+    // Constroi lista 1
+    escrever "Array A com 8 elementos: "
+    para i de 0 ate 7
+        ler lista_a [ i ]
+    proximo
+    
+    // Constroi lista 2
+    escrever "Array B com 8 elementos: "
+    para i de 0 ate 7
+        ler lista_b [ i ]
+    proximo
+    
+    para i de 0 ate 7
+        para aux de 0 ate 7
+            se lista_a [ i ] = lista_b [ aux ] entao
+                cont <- cont + 1
+            fim se
+        proximo
+    proximo
+    
+    escrever "\nResultado: " , cont , " elementos do array A pertencem ao array B."
+fim
+

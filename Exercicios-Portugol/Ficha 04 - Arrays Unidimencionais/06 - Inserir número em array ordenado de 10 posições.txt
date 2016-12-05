@@ -1,0 +1,32 @@
+// Array 10 posições ordenado ASC, pesuisar por um valor e inserir
+// OBS: Programa dá erro se pesquisar por um número maior que não tenha na lista
+inicio
+
+inteiro num[11], valor, i, pos
+
+para i de 0 ate 9	// irá ler 10 posições
+	ler num[i]
+proximo
+
+ler valor	// valor de pesquisa
+i <- 0
+
+enquanto num[i] < valor faz	// enquanto o valor do array for menor que o valor pesquisado
+	i <- i + 1			// avança uma casa
+fim enquanto
+
+pos <- i		// salva a posição onde deve inserir o novo número
+
+i <- 0		// zerar o valor de i
+para i de 9 ate pos passo -1		// "andar para trás" vai avançar os números do array, após o valor encontrado
+	num[i + 1] <- num[i]
+proximo
+
+num[pos] <- valor		// insere o valor do novo elemento
+
+i <- 0		// zerar o valor de i
+para i de 0 ate 10
+	escrever num[i], " " 
+proximo
+fim
+

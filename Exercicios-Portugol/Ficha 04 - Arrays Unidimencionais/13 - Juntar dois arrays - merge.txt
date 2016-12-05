@@ -1,0 +1,35 @@
+// 13 - Juntar dois arrays - merge
+// Funciona exatamente para o tipo de exemplo do exercício
+// Versão 22:06 25/10/2015
+
+inicio
+    inteiro lista1 [ 10 ] , lista2 [ 10 ] , merge [ 20 ] , i
+    
+    // Receber dados na lista 1
+    escrever "Lista 1: \n"
+    para i de 0 ate 9
+        ler lista1 [ i ]
+    proximo
+    
+    // Receber dados na lista 2
+    escrever "Lista 1: \n"
+    para i de 0 ate 9
+        ler lista2 [ i ]
+    proximo
+    
+    // Merger os dados da lista 1 e 2
+    para i de 0 ate 18 passo 2
+        se lista1 [ i / 2 ] < lista2 [ i / 2 ] entao
+            merge [ i ] <- lista1 [ i / 2 ]
+            merge [ i + 1 ] <- lista2 [ i / 2 ]
+        senao
+            merge [ i ] <- lista2 [ i / 2 ]
+            merge [ i + 1 ] <- lista1 [ i / 2 ]
+        fim se
+    proximo
+    
+    para i de 0 ate 19
+        escrever merge [ i ], " "
+    proximo
+fim
+

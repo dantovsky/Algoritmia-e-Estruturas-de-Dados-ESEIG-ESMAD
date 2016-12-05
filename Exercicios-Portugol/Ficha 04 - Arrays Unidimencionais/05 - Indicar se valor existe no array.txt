@@ -1,0 +1,26 @@
+// 05 - Indicar se valor existe no array
+// Recebe um array de 10 números inteiros
+inicio
+inteiro num[10], i, procura, posicao
+logico existe <- falso
+
+para i de 0 ate 9
+    ler num[i]
+proximo
+
+escrever "Número a procurar: "
+ler procura
+
+para i de 0 ate 9
+    se procura = num[i] entao
+        existe <- verdadeiro
+        posicao <- i + 1    // soma 1 para acertar o valor da posição      
+    fim se
+proximo
+
+se existe = verdadeiro entao
+    escrever "Existe o número ", procura, " na posição ", posicao
+senao
+    escrever "Não existe o número ", procura, " na lista."
+fim se
+fim

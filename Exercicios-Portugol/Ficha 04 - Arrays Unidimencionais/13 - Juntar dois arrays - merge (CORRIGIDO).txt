@@ -1,0 +1,54 @@
+// 13 - Juntar dois arrays - merge
+// Funciona exatamente para o tipo de exemplo do exercício
+// Versão 22:06 25/10/2015
+inicio
+    inteiro lista1 [ 3 ] , lista2 [ 3 ] , merge [ 6 ] , i , j , k
+    k <- 0
+    // Receber dados na lista 1
+    escrever "Lista 1: \n"
+    para i de 0 ate 2
+        ler lista1 [ i ]
+    proximo
+    
+    // Receber dados na lista 2
+    escrever "Lista 1: \n"
+    para i de 0 ate 2
+        ler lista2 [ i ]
+    proximo
+    
+    // Construir nova lista mergida
+    i <- 0
+    j <- 0
+    enquanto k <= 5 faz
+        //----- CASO DE PARAGEM
+        // se lista 1 terminou entao entrega o restante da lista 2
+        se i > 2 entao
+            merge [ k ] <- lista2 [ j ]
+            k <- k + 1
+            j <- j + 1
+        senao
+            // se lista 2 terminou entao entrega o restante da lista 1
+            se j > 2 entao
+                merge [ k ] <- lista1 [ i ]
+                k <- k + 1
+                i <- i + 1
+                //----- ----- -----
+            senao
+                // merger valores das duas listas
+                se lista1 [ i ] < lista2 [ j ] entao
+                    merge [ k ] <- lista1 [ i ]
+                    k <- k + 1
+                    i <- i + 1
+                senao
+                    merge [ k ] <- lista2 [ j ]
+                    k <- k + 1
+                    j <- j + 1
+                fim se
+            fim se
+        fim se
+    fim enquanto
+    para i de 0 ate 5
+        escrever merge [ i ] , " "
+    proximo
+fim
+

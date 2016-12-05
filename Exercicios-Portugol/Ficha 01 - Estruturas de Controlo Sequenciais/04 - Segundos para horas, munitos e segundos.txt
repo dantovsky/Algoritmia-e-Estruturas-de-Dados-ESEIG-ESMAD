@@ -1,0 +1,23 @@
+Ficha 01
+
+4. Escreva um algoritmo que a partir de um determinado número de segundos calcula
+o número de horas, minutos e segundos correspondentes. Conforme o seguinte
+exemplo:
+
+8053s = 2h + 14m + 13s
+
+// transformar um determinado numero de segundos em horas, minutos e segundos correspondentes.
+
+Inicio
+    inteiro tempo
+    Escrever "Tempo: "
+    Ler tempo
+
+    inteiro horas, minutos, segundos
+    minutos <- tempo / 60
+    horas <- minutos / 60
+    minutos <- minutos - horas * 60
+    segundos <- tempo - horas * 3600 - minutos * 60
+    
+    Escrever tempo, "s =", horas, "h", minutos, "m", segundos, "s"
+Fim

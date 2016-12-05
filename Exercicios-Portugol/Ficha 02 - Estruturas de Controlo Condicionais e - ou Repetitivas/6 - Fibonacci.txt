@@ -1,0 +1,26 @@
+// Sequencia de Fibonacci
+inicio
+inteiro num_termos, fibonacci, aux1, aux2, temp, cont
+aux1 <- 0
+aux2 <- 1
+fibonacci <- 0
+
+escrever "Número de termos a imprimir: "
+ler num_termos
+
+se num_termos >= 1 entao
+    escrever "0,"
+fim se
+se num_termos >= 2 entao
+    escrever "1"
+fim se
+
+para cont de 3 ate num_termos
+    escrever ",",(aux1 + aux2)
+    temp <- aux2
+    aux2 <- (aux1 + aux2)
+    aux1 <- temp
+    
+proximo
+
+fim

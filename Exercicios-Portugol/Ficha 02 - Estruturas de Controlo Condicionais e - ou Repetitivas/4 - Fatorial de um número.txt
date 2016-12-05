@@ -1,0 +1,12 @@
+// Obtem o fatorial de um número
+// By Dante Marinho
+inicio
+inteiro cont, num, fatorial 
+fatorial <- 1
+
+LER num
+PARA cont DE 2 ATE num    // posso iniciar por 1 ou por 2
+    fatorial <- fatorial * cont
+PROXIMO
+ESCREVER "O fatorial de ", num, " é ", fatorial
+fim

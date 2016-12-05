@@ -1,0 +1,13 @@
+Ficha 01
+
+// 03. Transformar temperatura Celsius em Fahrenheit
+inicio
+real celsius, fah
+
+escrever "Insira uma temperatura em graus Celsius: "
+ler celsius
+
+fah <- 1.8 * celsius + 32
+
+escrever "Temperatura em Fahrenheit: ", fah
+fim

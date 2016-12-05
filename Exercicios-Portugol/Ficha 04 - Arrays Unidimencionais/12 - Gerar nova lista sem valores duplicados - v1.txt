@@ -1,0 +1,35 @@
+// 12 - Gerar nova lista sem valores duplicados
+// Neste, o programa vai gerando o novo array ao mmomento que introduz dados no 1º array
+// 18:22 25/10/2015
+inicio
+    inteiro lista [ 10 ] , nova_lista [ 10 ] , i , aux
+    //-----
+    escrever "Insira 10 valores inteiros: "
+    para i de 0 ate 9
+        ler lista [ i ]
+        
+	// Gera novo array 
+        se i = 0 entao
+            nova_lista [ aux ] <- lista [ i ]
+            aux <- aux + 1
+        senao
+            se i > 0 e lista [ i ] =/= lista [ i - 1 ] entao
+                nova_lista [ aux ] <- lista [ i ]
+                aux <- aux + 1
+            fim se
+        fim se
+    proximo
+    
+    escrever "Lista 1\n"
+    // Apresentar a lista
+    para i de 0 ate 9
+        escrever lista [ i ], " "
+    proximo
+    
+    escrever "\n\nLista 2\n"
+    // Apresentar a nova lista
+    para i de 0 ate aux - 1
+        escrever nova_lista [ i ], " "
+    proximo
+fim
+

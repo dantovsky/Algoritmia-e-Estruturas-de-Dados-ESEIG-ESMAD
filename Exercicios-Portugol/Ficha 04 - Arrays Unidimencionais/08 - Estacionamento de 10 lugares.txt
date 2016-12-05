@@ -1,0 +1,39 @@
+// 08 - Estacionamento de 10 lugares
+// Versão 17:07 25/10/2015
+// Programa que verifica lugares vagos numa fila de estacionamento e ocupa-os.
+inicio
+    inteiro estacionamento [ 10 ] <- {0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0}// 0 = lugar vago
+    inteiro i// indice
+    inteiro cont <- 0// contar número de lugares cheios
+    inteiro pesquisa_lugar// lugar a procurar se este está vago
+    
+    enquanto cont <= 9 faz
+        
+        repete    // ira repetir até que introduza um valor entre 1 e 10
+            escrever "\n\nIndique um lugar: (de 1 a 10) "
+            ler pesquisa_lugar
+        ate pesquisa_lugar > 0 e pesquisa_lugar <= 10
+        
+        // Verificar se está ocupado ou livre. Se estivar livre, assina o lugar com o valor "1"
+        se estacionamento [ pesquisa_lugar - 1 ] = 1 entao
+            escrever "OCUPADO\n"
+        senao
+            escrever "LIVRE\n"// diz que está livre, ocupa este lugar e soma 1 ao contador
+            estacionamento [ pesquisa_lugar - 1 ] <- 1
+            cont <- cont + 1
+        fim se
+        
+        // Apresentar os lugares
+        escrever "Lugares do estacionamento: \n\n"
+        escrever " E S T A C I O N A M E N T O\n"
+        escrever "_______________________________________\n"
+        para i de 0 ate 9
+            escrever estacionamento [ i ] , " | "
+        proximo
+        escrever "\n  |   |   |   |   |   |   |   |   |   |"
+    fim enquanto
+    escrever "\n\n##########################################\n"
+    escrever "### Estacionamento totalmente ocupado! ###"
+    escrever "\n##########################################\n"
+fim
+

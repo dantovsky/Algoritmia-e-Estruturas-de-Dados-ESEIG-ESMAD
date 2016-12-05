@@ -1,0 +1,30 @@
+// 04 - Somatório entre dois pares
+// Recebe uma lista de 10 números e soma os números que estão entre dois pares(inclusive)
+
+inicio
+inteiro i , soma , pares , n
+soma <- 0
+pares <- 0
+
+escrever " Insira dez numeros \n"
+
+para i de 0 ate 9
+    ler n    
+    se pares < 2 entao
+        se n % 2 = 0 entao
+            soma <- soma + n
+            pares <- pares + 1
+        senao
+            se pares >= 1 entao
+                soma <- soma + n
+            fim se
+        fim se
+    fim se      
+proximo
+
+se pares < 2 entao
+    escrever "-1"
+senao
+    escrever "A soma é: " , soma , "."
+fim se
+fim

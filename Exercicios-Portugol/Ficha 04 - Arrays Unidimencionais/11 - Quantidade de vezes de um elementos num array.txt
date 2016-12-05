@@ -1,0 +1,25 @@
+// 11 - Quantidade de vezes de um elementos num array
+// Versao 17:56 25/10/2015
+// Verificar quantas vezes ocorre um número pesquisado no array
+inicio
+    inteiro lista [ 20 ] , n_elementos , pesquisa , i , contador
+    escrever "Quantos números na lista? (até 20 elementos) "
+    ler n_elementos
+    
+    escrever "\nInsira os números na lista... "
+    para i de 0 ate ( n_elementos - 1 )
+        ler lista [ i ]
+    proximo
+    escrever "Número a pesquisar repetições? "
+    ler pesquisa
+    
+    para i de 0 ate ( n_elementos - 1 )
+        se lista [ i ] = pesquisa entao
+            contador <- contador + 1
+        fim se
+    proximo
+    
+    escrever "\n\nO número " , pesquisa , " ocorre " , contador , " vezes."
+    
+fim
+

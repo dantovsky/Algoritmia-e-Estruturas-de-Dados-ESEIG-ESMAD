@@ -1,0 +1,31 @@
+//lê os dados de 25 pacientes e determina quantos apresentam um quadro de hiperglicemia e quantos estão com hipoglicemia. Mostrar o valor mais elevado que ocorreu na amostra dos 25 pacientes
+
+inicio
+    texto nome
+    real glicemia
+    real hipo, hiper, mais_elevado
+    inteiro i
+    hipo <- 0
+    hiper <- 0
+    mais_elevado <- 0  //valor escolhido por ser um caso impossível
+                       //neste caso, o primeiro paciente deverá bater logo este valor
+    PARA i de 1 ATE 5
+        Escrever "Nome: " 
+        LER nome
+        Escrever "Glicemia: "
+        LER glicemia
+        SE glicemia < 70 ENTAO
+            hipo <- hipo + 1
+        SENAO
+            SE glicemia > 160 ENTAO
+                hiper <- hiper + 1
+            FIM SE                
+        FIM SE
+        SE glicemia > mais_elevado ENTAO
+            mais_elevado <- glicemia
+        FIM SE
+    PROXIMO
+    ESCREVER "Há ", hipo, " pacientes com hipoglicemia. \n"
+    ESCREVER "Há ", hiper, " pacientes com hiperglicemia. \n"
+    ESCREVER "O paciente com glicemia mais elevado tem o valor de ", mais_elevado, "."
+fim

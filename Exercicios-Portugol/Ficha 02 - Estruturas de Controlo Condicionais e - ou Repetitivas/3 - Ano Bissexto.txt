@@ -1,0 +1,16 @@
+// Ano bissexto
+// Ajuda no link: https://pt.wikipedia.org/wiki/Ano_bissexto
+inicio
+inteiro ano
+
+// gera número aleatório entre 1900 e 2012
+ano <- 1900 + aleatorio() * (2012 - 1900)
+
+escrever "Ano ", ano
+escrever "\n\n" 
+se ((ano % 4 = 0 E ano % 100 =/= 0) OU ano % 400 = 0) entao
+    escrever ano, " é ano bissexto."
+senao
+    escrever ano, " não é ano bissexto."
+fim se
+fim

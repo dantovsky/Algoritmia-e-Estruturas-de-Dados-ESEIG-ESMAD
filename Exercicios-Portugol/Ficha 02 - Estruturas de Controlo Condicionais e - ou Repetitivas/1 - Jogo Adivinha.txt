@@ -1,0 +1,34 @@
+inicio
+    inteiro chute , num_aleatorio , tentativas
+    num_aleatorio <- aleatorio ( ) * 10
+    tentativas <- 0
+    texto opcao
+    repete// opcao de repetir o jogo
+        repete// jogo a rodar
+            escrever "Escolha um número: "
+            ler chute
+            se chute < num_aleatorio entao
+                escrever "Maior!\n\n"
+                tentativas <- tentativas + 1
+            senao
+                se chute > num_aleatorio entao
+                    escrever "Menor!\n\n"
+                    tentativas <- tentativas + 1
+                fim se
+            fim se
+        ate chute = num_aleatorio ou tentativas >= 10
+        se chute = num_aleatorio entao
+            escrever "Acertou!!!\nO número é: " , num_aleatorio , "\n"
+            escrever "Foram " , tentativas + 1 , " tentativas.\n\n"
+        senao
+            escrever "Game Over! Acabaram as " , tentativas , " tentativas!"
+        fim se
+        
+        escrever "Novo jogo(S/N)?"
+        ler opcao
+    ate opcao = "N" ou opcao = "n" ou opcao = "NAO" ou opcao = "nao"
+    escrever "\n***************\n"
+    escrever "* FIM DO JOGO *\n"
+    escrever "***************\n"
+fim
+

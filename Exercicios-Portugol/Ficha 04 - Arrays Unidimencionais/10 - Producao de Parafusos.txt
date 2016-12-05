@@ -1,0 +1,68 @@
+﻿// 10 - Producao de Parafusos
+// Revisão em 13:29 25/10/2015
+
+// Um parafuso é uma linha, numa tabela de duas colunas (coluna peso e comprimento)
+
+// -> Ler n
+// -> Para os n parafusos
+//  	ler peso
+//  	ler comprimeno
+	
+// -> Clacular nº parafusos com defeito
+// -> Calcular media de peso e do comprimento
+
+inicio
+// variavais
+inteiro n
+inteiro produtos[20][2]	// array com 20 linhas e duas colunas (peso e comprimento)
+inteiro i, j, peso_ref, comprimento_ref
+real peso_med <- 0, comprimento_med <- 0
+inteiro conta_defeito <- 0
+
+// Ler n parafusos (linha e coluna)
+escrever "Quantos parafusos? (até 20 parafusos)"
+ler n
+
+// Referência de peso e comprimento
+escrever "Peso referência: "
+ler peso_ref
+escrever "Comprimento referência: "
+ler comprimento_ref
+
+para i de 0 ate n - 1
+	para j de 0 ate 1
+		
+		// Exibir para o usuário o nome da coluna correto
+		// A coluna varia quando j = 0 ou j = 1
+		// 0 para peso e 
+		// 1 para comprimento
+		se j = 0 entao	// (peso)
+			escrever "Peso do parafuso ", i + 1, ": "
+			
+			ler produtos[i][j]		// ou simplesmente produtos[i][0]
+			peso_med <- peso_med + produtos[i][j]
+						
+		senao	// quando j = 1 (comprimento)
+			escrever "Comprimento do parafuso ", i + 1, ": "
+			
+			ler produtos[i][j]		// ou simplesmente produtos[i][1]
+			comprimento_med <- comprimento_med + produtos[i][j]
+            fim se		
+	proximo
+	
+	// Calcular defeitos, o mesmo contador para peso e comprimento
+			// j = 0 => peso, j = 1 => comprimento
+			se produtos[i][0] >  peso_ref * 1.1 ou produtos[i][0] < peso_ref * 0.9 ou produtos[i][1] >  comprimento_ref * 1.1 ou produtos[i][1] < comprimento_ref * 0.9 entao
+				conta_defeito <- conta_defeito + 1
+			fim se
+proximo
+
+// Médias de peso e comprimento
+peso_med <- peso_med / n
+comprimento_med <- comprimento_med / n
+
+escrever "\nNúmero de parafuros dentro do padrão: ", n - conta_defeito
+escrever "\nNúmero de parafuros com defeito: ", conta_defeito
+escrever "\nMédia de peso: ", peso_med
+escrever "\nMédia de comprimento: ", comprimento_med
+fim

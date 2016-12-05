@@ -1,0 +1,42 @@
+﻿// 09 - Produção mensal da fábrica
+
+inicio
+inteiro producao[12], acumulado[12], i
+real metade
+texto mes[12] <- {"Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"}
+
+para i de 0 ate 11
+
+    escrever "Produção de ", mes[i], ": "
+    ler producao[i]
+    
+    se i = 0 entao        //se p ,es ek jameorp
+        acumulado[i] <- producao[i]        // acumulado é a própria producao
+    senao
+        acumulado[i] <- acumulado[i - 1] + producao[i]
+    fim se
+proximo
+
+
+// resposta (a)
+escrever "\nMÊS\tVALOR ACUMULADO \n"
+para i de 0 ate 11
+    escrever mes[i], "\t", acumulado[i], "\n"
+proximo
+// ------------------------------------
+
+
+// resposta (b)
+escrever "A produção total anual foi de ", acumulado[11], " toneladas."
+//-------------------------------------
+
+// resposta (c)
+metade <- acumulado[11] / 2
+i <- 0    // voltar a por o valor de i = zero
+
+enquanto acumulado[i] < metade faz
+    i <- i + 1
+fim enquanto
+
+escrever "\nMetade da producao em ", mes[i], " com o valor de ", acumulado[i], " toneladas."
+fim

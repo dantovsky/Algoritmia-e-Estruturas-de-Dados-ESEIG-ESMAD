@@ -1,0 +1,31 @@
+// 05 - Converter anos terrestres
+inicio
+inteiro anos_terra 
+real conversao, anos_planeta, dias_terra
+texto nome_planeta
+
+escrever "Anos terrestres: "
+ler anos_terra
+dias_terra <- 365 * anos_terra
+
+escrever "Planeta: "
+ler anos_planeta
+
+
+escolhe anos_planeta
+	caso 1: conversao <- dias_terra / 88
+			nome_planeta <- "Mercúrio"
+	caso 2: conversao <- dias_terra / 225
+			nome_planeta <- "Vénus"
+	caso 3: conversao <- dias_terra / 365
+			nome_planeta <- "Terra"
+	caso 4: conversao <- dias_terra / 687
+			nome_planeta <- "Marte"
+	caso 5: conversao <- dias_terra / 4330
+			nome_planeta <- "Júpiter"
+	caso 6: conversao <- dias_terra / 10752
+			nome_planeta <- "Saturno"
+fim escolhe
+
+escrever "Anos em ", nome_planeta, ": ", conversao, " anos"
+fim

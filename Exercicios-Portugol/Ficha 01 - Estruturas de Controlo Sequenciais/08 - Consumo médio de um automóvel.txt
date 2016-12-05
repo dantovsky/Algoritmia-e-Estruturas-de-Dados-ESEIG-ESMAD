@@ -1,0 +1,26 @@
+Ficha 01
+
+8. Escreva um algoritmo que simule um pequeno computador de bordo automóvel,
+que calcule o consumo médio de um automóvel a partir do número de quilómetros
+efectuados e da quantidade de combustível gasto.
+Se o consumo médio for superior a 5 l/100 Km, deve imprimir a mensagem
+“consumo elevado”;
+Se o consumo médio for inferior a 4,5 l/100Km deve imprimir a mensagem
+“consumo baixo”;
+Noutras situações imprimir “consumo normal”.
+//calcula o consumo médio de um automóvel a partir do número de quilómetros efectuados e da quantidade de combustível gasto
+
+INICIO
+    real km, litros, media
+    Ler km, litros
+    media <- litros * 100 / km    // calculo da média de consumo
+    SE media > 5 ENTAO
+        ESCREVER "consumo elevado!!!\n", "média = ", media, " litros/100"
+    SENAO
+        SE media < 4.5 ENTAO
+            ESCREVER "consumo baixo\n", "média = ", media, " litros/100"
+        SENAO
+            ESCREVER "consumo normal\n", "média = ", media, " litros/100"
+        FIM SE
+    FIM SE
+FIM

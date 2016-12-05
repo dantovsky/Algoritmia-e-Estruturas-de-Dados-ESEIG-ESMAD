@@ -1,0 +1,23 @@
+Ficha 01
+
+1. Elabore um algoritmo que, dada uma medida em polegadas apresente o resultado
+em mm e em cm.
+Nota: 25,4 mm = 1 polegada
+Exemplo: Nº de Polegadas: 10
+ mm = 254 mm, cm = 25,4 cm
+
+// este algoritmo recebe uma medida em polegadas e converte em mm e em cm
+Inicio
+    real polegadas
+    real mm
+    real cm
+    
+    ESCREVER "Digite uma medida em polegadas: "
+    LER polegadas
+    
+    mm <- 25.4 * polegadas
+    cm <- 25.4 / polegadas
+    
+    ESCREVER "Valor em mm: ", mm, "\n"
+    ESCREVER "Valor em cm: ", cm
+FIM

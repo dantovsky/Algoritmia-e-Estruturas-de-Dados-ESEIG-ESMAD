@@ -1,0 +1,36 @@
+Ficha 01
+
+// 12 - Calcula o peso em outro planeta
+inicio
+real peso, novo_peso
+inteiro codigo_planeta
+texto nome_planeta
+
+escrever "Qual o seu peso no planeta Terra? "
+ler peso
+
+escrever "Em qual planeta queres saber o teu peso? "
+ler codigo_planeta
+
+escolhe codigo_planeta
+    caso 1 : novo_peso <- peso * 0.37
+                nome_planeta <- "Mercúrio"
+                
+    caso 2 : novo_peso <- peso * 0.88
+                nome_planeta <- "Vénus"
+                
+    caso 3 : novo_peso <- peso * 0.38 
+                 nome_planeta <- "Marte"
+                 
+    caso 4 : novo_peso <- peso * 2.64
+                 nome_planeta <- "Júpiter"
+                
+    caso 5 : novo_peso <- peso * 1.15
+                nome_planeta <- "Saturno"
+                
+    caso 6 : novo_peso <- peso * 1.17
+                nome_planeta <- "Urano"
+fim escolhe
+
+escrever "O teu peso em ", nome_planeta, " é ", novo_peso, " quilos."
+fim

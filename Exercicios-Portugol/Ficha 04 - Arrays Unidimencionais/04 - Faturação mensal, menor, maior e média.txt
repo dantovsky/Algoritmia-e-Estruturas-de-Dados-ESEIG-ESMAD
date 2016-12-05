@@ -1,0 +1,39 @@
+// 04. Faturação mensal, menor, maior e média da faturação
+// Dante Marinho
+
+inicio
+texto mes[12] <- {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"}
+inteiro faturacao[12], menor, maior, posicao_menor, posicao_maior, i
+real soma <- 0, media
+
+para i de 0 ate 11
+    escrever "Faturação de ", mes[i], ":"
+    ler faturacao[i]
+    soma <- soma + faturacao[i]
+proximo
+
+// atribuição de menor e maior faturação para o 1º mês
+menor <- faturacao[0]
+maior <- faturacao[0]
+
+
+// Calcular a média
+media <- soma / 12
+
+// Verificao o mes de menor e maior faturacao
+para i de 1 ate 11
+    se faturacao[i] < menor entao
+        menor <- faturacao[i]
+        posicao_menor <- i
+    senao
+        se faturacao[i] > maior entao
+            maior <- faturacao[i]
+            posicao_maior <- i
+        fim se
+    fim se
+proximo
+
+escrever "\nMês de menor faturação: ", mes[posicao_menor], " ", menor
+escrever "\nMês de maior faturação: ", mes[posicao_maior], " ", maior
+escrever "\nMédia da faturação: ", media
+fim

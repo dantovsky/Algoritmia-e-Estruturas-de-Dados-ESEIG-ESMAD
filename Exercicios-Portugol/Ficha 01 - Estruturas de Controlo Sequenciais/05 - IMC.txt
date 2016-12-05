@@ -1,0 +1,16 @@
+Ficha 01
+
+// 05 - IMC: recebe o peso em kg e altura em metros e calcula o respetivo índice de massa corporal.
+
+inicio
+real kg, m, imc
+
+escrever "Insira o teu peso: "
+ler kg
+escrever "Insira a tua altura: "
+ler m
+
+imc <- kg / (m * m)
+
+escrever "IMC = ", imc
+fim
