@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // Função que converte o número em forma de string para o seu valor em inteiro
+        static void Main(string[] args)
+        {
+            Console.Write("Número em string ? ");
+            string num_string = Console.ReadLine();
+
+            int num_inteiro = Convert.ToInt32(num_string);
+            Console.WriteLine("Número em inteiro: " + num_inteiro);
+            // Console.ReadKey();
+        }
+    }
+}

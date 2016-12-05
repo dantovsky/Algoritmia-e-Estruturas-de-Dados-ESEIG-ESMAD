@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApplication1
+{
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Cifra de Cesar
+            // string[] abc = new string[26] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q","r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            //   char[] abc = new char[26] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+            string texto = " ";
+            int chave = 0;
+            char aux = ' ';
+            string abc = "abcdefghijklmnopqrstuvwxyz";
+
+            Console.Write("Insira um texto: ");
+            texto = Console.ReadLine();
+
+            Console.Write("Insira um valor para a chave: ");
+            chave = Convert.ToInt16(Console.ReadLine());
+
+            // Obter comprimento do texto inserido
+            int comp = texto.Length;
+
+            for (int i = 0; i < comp; i++)
+            {
+                aux = texto[i];
+                int pos = abc.IndexOf(aux);
+                if (pos + chave > 25)   // resolver para o caso menor que zero: || pos + chave < 0)
+                    Console.Write(abc[(pos + chave) % 26]);
+                else if (pos + chave < 0)
+                {
+                    while (pos + chave < 0)
+                    {
+                        chave = chave + 26;
+                    }
+                    Console.Write(abc[pos + chave]);
+                }
+                else
+                    Console.Write(abc[pos + chave]);
+            }   // fim do for
+            Console.ReadLine();
+            
+            /*  // se quiser fazer com array
+            int pos1 = Array.IndexOf(teste, "d");
+            Console.WriteLine("pos1 = " + pos1);
+            */           
+        }
+    }
+}

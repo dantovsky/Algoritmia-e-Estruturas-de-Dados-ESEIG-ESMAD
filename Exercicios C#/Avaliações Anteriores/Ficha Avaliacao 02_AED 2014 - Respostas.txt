@@ -1,0 +1,376 @@
+//-------------------------------------------------
+// Questão 01
+//-------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // EAD | Teste 2, ano 2014/15
+            Console.Write("Insira um texto: ");
+            string texto = Console.ReadLine();
+            string novoTexto = "";
+            for (int i = 0; i < texto.Length; i++)
+            {
+                //int algarismo = Convert.ToInt16(texto[i]);
+                if (Char.IsDigit(texto[i])) // FUNCAO NOVA
+                {
+                    novoTexto = novoTexto + numeroPorEscrito(texto[i]);
+                }
+                else
+                {
+                    novoTexto = novoTexto + texto[i];
+                }
+            }
+            Console.Write("Novo texto: {0}", novoTexto);
+            Console.ReadLine();
+        } // Main()
+        static string numeroPorEscrito(char num)
+        {
+            string numeroPorEscrito = "";
+            switch (num)
+            {
+                case '0':
+                    numeroPorEscrito = "zero";
+                    break;
+                case '1':
+                    numeroPorEscrito = "um";
+                    break;
+                case '2':
+                    numeroPorEscrito = "dois";
+                    break;
+                case '3':
+                    numeroPorEscrito = "três";
+                    break;
+                case '4':
+                    numeroPorEscrito = "quatro";
+                    break;
+                case '5':
+                    numeroPorEscrito = "cinco";
+                    break;
+                case '6':
+                    numeroPorEscrito = "seis";
+                    break;
+                case '7':
+                    numeroPorEscrito = "sete";
+                    break;
+                case '8':
+                    numeroPorEscrito = "oito";
+                    break;
+                case '9':
+                    numeroPorEscrito = "nove";
+                    break;
+                default:
+                    break;
+            }
+            return numeroPorEscrito;
+        } // numeroPorEscrito()
+    }
+}
+
+
+//-------------------------------------------------
+// Questão 02
+//-------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // EAD 2014/15 | Teste 2, Questão 2
+            Console.Write("Insira o seu nº de aluno: ");
+            string numeroAluno = Console.ReadLine();
+
+            while (numeroAluno != "0")
+            {
+                Console.Write("Tipo de acesso: <E (entrada), S(saída)> ");
+                string tipoAcesso = Console.ReadLine();
+
+                // CRIA O FICHEIRO
+                string ficheiro = @"acessos.txt";   // nome do ficheiro de acessos
+                StreamWriter sw;
+                if (File.Exists(ficheiro))
+                {
+                    sw = File.AppendText(ficheiro);
+                }
+                else
+                {
+                    sw = File.CreateText(ficheiro);
+                }
+                string linha =
+                    numeroAluno +
+                    ";" +
+                    DateTime.Now.ToString("yyyy-MM-dd") +
+                    ";" +
+                    DateTime.Now.ToString("HH:mm") +
+                    ";" +
+                    tipoAcesso;
+                sw.WriteLine(linha);
+                sw.Close();
+                // ----- FECHAMENTO DO ARQUIVO ----- 
+                Console.WriteLine("\nFoi registado o seguinte dado no ficheiro \"acessos.txt\":\n" + linha);
+
+                // Volta a pergunta do início do programa
+                Console.Write("\nInsira o seu nº de aluno (digite 0 para sair): ");
+                numeroAluno = Console.ReadLine();
+            }
+           // Console.ReadLine();
+        } // Main()
+    }
+}
+
+
+//-------------------------------------------------
+// Questão 03
+//-------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+
+namespace Exercicios
+{
+    class Program
+    {
+        //------------------------------------------
+        public class Global
+        {
+            public static string ficheiro = @"acessos.txt";   // nome do ficheiro de acessos
+        }
+        //------------------------------------------
+        static bool alunoJaEntrou(string numeroAluno)
+        {
+            bool result = false;
+            StreamReader sr;
+            if (File.Exists(Global.ficheiro))
+            {
+                sr = File.OpenText(Global.ficheiro);
+                string linha = "";
+                while ((linha = sr.ReadLine()) != null)
+                {
+                    string[] campos = new string[4];
+                    campos = linha.Split(';');
+                    if (campos[0] == numeroAluno)
+                    {
+                        result = true;
+                    }
+                }
+                sr.Close();
+            }
+            return result;
+        }
+        static void registaAcesso(string numeroAluno, string tipoAcesso)
+        {
+            // CRIA O FICHEIRO
+            //string ficheiro = @"acessos.txt";   // nome do ficheiro de acessos
+            StreamWriter sw;
+            if (File.Exists(Global.ficheiro))
+            {
+                sw = File.AppendText(Global.ficheiro);
+            }
+            else
+            {
+                sw = File.CreateText(Global.ficheiro);
+            }
+            string linha =
+                numeroAluno +
+                ";" +
+                DateTime.Now.ToString("yyyy-MM-dd") +
+                ";" +
+                DateTime.Now.ToString("HH:mm") +
+                ";" +
+                tipoAcesso.ToUpper();   // IMPLEMENTAÇÃO PARA A QUESTÃO 3
+            sw.WriteLine(linha);
+            sw.Close();
+            // ----- FECHAMENTO DO ARQUIVO ----- 
+            Console.WriteLine("\nFoi registado o seguinte dado no ficheiro \"acessos.txt\": " + linha);
+        }
+        static void Main(string[] args)
+        {
+            // EAD 2014/15 | Teste 2, Questão 3
+            Console.Write("Insira o seu nº de aluno: ");
+            string numeroAluno = Console.ReadLine();
+
+            while (numeroAluno != "0")
+            {
+                // string ficheiro = @"acessos.txt";   // nome do ficheiro de acessos
+                Console.Write("Tipo de acesso: <E (entrada), S(saída)> ");
+                string tipoAcesso = Console.ReadLine();
+                if (alunoJaEntrou(numeroAluno) == true && (tipoAcesso == "E" || tipoAcesso == "e"))
+                {
+                    Console.WriteLine("::MENSAGEM:: O aluno nº {0} já entrou.\n", numeroAluno);
+                }
+                else if (alunoJaEntrou(numeroAluno) == false && (tipoAcesso == "S" || tipoAcesso == "s"))
+                {
+                    Console.WriteLine("::MENSAGEM:: O aluno nº {0} ainda não entrou, logo, não pode registar a sua saída da sala.\n", numeroAluno);
+                }
+                else
+                {
+                    // INVOCA A FUNCAO QUE REGISTA NO FICHEIRO DE ACESSO
+                    registaAcesso(numeroAluno, tipoAcesso);
+                    // Volta a pergunta do início do programa
+                    Console.Clear();
+                    Console.Write("Insira o seu nº de aluno (digite 0 para sair): ");
+                    numeroAluno = Console.ReadLine();
+                }
+                
+            }
+            // Console.ReadLine();
+        } // Main()
+    }
+}
+
+//-------------------------------------------------
+// Questão 04
+//-------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // Questão 4 | Teste 2014/15
+        // Feito por Dante Marinho, 07/12/2015
+
+        // **********************************************************
+        //                       VARIAVEIS GLOBAIS                  *
+        // **********************************************************
+        public class Global
+        {
+            // CRIACAO DA MATRIZ 3x5
+            public static int[,] parque = new int[3, 5];
+        }
+        // **********************************************************
+        // *             Main() -> Programa prinicipal              *
+        // **********************************************************
+        static void Main(string[] args)
+        {
+            int opcao;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Questão 4 | Teste 2014/15 | Dante Marinho" +
+                    "\n\n~ MENU ~\n\n" +
+                    "1 - Entrada de veículo\n" +
+                    "2 - Saída de carro\n" +
+                    "3 - Estado do Parque\n" +
+                    "0 - Sair do programa\n\n"
+                    );
+                Console.Write("Opção: . . . ");
+                opcao = Convert.ToInt16(Console.ReadLine());
+                switch (opcao)
+                {
+                    case 1:
+                        // **************************** OPCAO 1 ******************************
+                        int cont = 0;
+                        int lugar_i = 0, lugar_j = 0;
+                        for (int i = 0; i < 3; i++)
+                        {
+                            bool flag = false;
+                            for (int j = 0; j < 5; j++)
+                            {
+
+                                if (cont == 14 && Global.parque[i, j] == 1)
+                                {
+                                    Console.WriteLine("Parque completo!");
+                                    Thread.Sleep(500);
+                                }
+                                else if (Global.parque[i, j] == 0)
+                                {
+                                    Global.parque[i, j] = 1;
+                                    flag = true;
+                                    lugar_i = i;
+                                    lugar_j = j;
+                                    cont++;
+                                    break;
+                                }
+                                else
+                                {
+                                    cont++;
+                                }
+                            }
+                            if (flag)
+                                break;
+                        }
+                        if (cont < 14)
+                            Console.WriteLine("\nFoi ocupado a {0} posição da {1} fila no parque.", lugar_j + 1, lugar_i + 1);
+                        Thread.Sleep(500);
+                        //Console.ReadLine();
+                        break;
+                    case 2:
+                        // **************************** OPCAO 2 | Saída de carro ****************************** 
+                        Console.Write("\nIndique a fila do carro que irá sair (1 a 3) : ");
+                        int fila = Convert.ToInt16(Console.ReadLine());
+                        Console.Write("Indique a posição do estacionamento (1 a 5) :  ");
+                        int posicao = Convert.ToInt16(Console.ReadLine());
+
+                        if (Global.parque[fila - 1, posicao - 1] == 0)
+                        {
+                            Console.Write("\n::MENSAGEM:: Este estacionamento já estava vago...");
+                            Thread.Sleep(1000);
+                        }
+                        else
+                        {
+                            Global.parque[fila - 1, posicao - 1] = 0;
+                            Console.Write("\n::MENSAGEM:: Saiu um carro do estacionamento");
+                            Thread.Sleep(1000);
+                        }
+                        break;
+                    case 3:
+                        // **************************** OPCAO 3 ****************************** 
+                        int contaCarros = 0;
+                        for (int i = 0; i < 3; i++)
+                        {
+                            for (int j = 0; j < 5; j++)
+                            {
+                                Console.SetCursorPosition(j * 3, 12 + i * 3);
+                                Console.WriteLine(Global.parque[i, j]);
+                                if (Global.parque[i, j] == 1)
+                                    contaCarros++;
+                            }
+                        }
+                        Console.WriteLine("\nLugares ocupados: {0} \nLugares livres: {1}", contaCarros, (15 - contaCarros));
+                        Console.ReadLine();
+                        break;
+
+                    default:
+                        if (opcao != 0)
+                            Console.WriteLine("Opção inválida!");
+                        Thread.Sleep(500);
+                        break;
+                }
+            } while (opcao != 0);
+            // Console.ReadKey();
+        }
+    }
+}

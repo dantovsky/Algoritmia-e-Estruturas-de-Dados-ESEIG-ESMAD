@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MENU
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {     // EXEMPLO de um programa que se inicia com um MENU 
+          char op=' ';
+           do {
+                Console.Clear();
+                Console.WriteLine("MENU");
+                Console.WriteLine("1 - Tirar Ticket");
+                Console.WriteLine("2 - Atendimento");
+                Console.WriteLine("3 - Estado da Fila");
+                Console.WriteLine("0 - Terminar");
+                Console.Write("    Opcao:");
+                op = Convert.ToChar(Console.ReadLine());
+                switch (op)
+                 {
+                    case '1': ///
+                        break;
+                    case '2': ///
+                        break;
+                    case '3': ///
+                        break;
+                    default: Console.WriteLine("Opção Inválida!");
+                        break;
+                }
+           }
+               while (op != '0');
+                
+
+        }
+    }
+}

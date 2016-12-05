@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace MENU
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Teste AED - Avaliação Final
+            // Questao 1
+
+            char opcao = ' ';
+            do
+            {
+                // Gerar num aleatorio
+                Random rand = new Random();
+                int num = rand.Next(1, 8);
+
+                // Leitura do ficheiro
+                string ficheiro = @"Palavras.txt";
+                StreamReader sr;
+                if (File.Exists(ficheiro))
+                {
+                    sr = File.OpenText(ficheiro);
+                    string linha = "";
+                    bool encontrou = false;
+                    while ((linha = sr.ReadLine()) != null && encontrou == false)
+                    {
+                        string[] campos = linha.Split(';');
+                        if (campos[0] == num.ToString())
+                        {
+                            encontrou = true;
+                            Console.Write("{0} - {1}", campos[0], escondeVogal(campos[1]));
+                        }
+                    }
+                    // Outra forma para ler determinada linha:
+                    // https://social.msdn.microsoft.com/Forums/pt-BR/27d2beab-870a-4e42-8bdc-84e805f90800/ler-determinada-linha-de-um-arquivo-txt?forum=504
+
+                    // Gravando dados no ficheiro
+                    // Vai salvar todos os animais que foram sendo sorteados naquela data
+                    string ficheiroRegisto = DateTime.Today.ToString("yyyyMMdd") + ".txt";
+                    StreamWriter sw;
+                    if (File.Exists(ficheiroRegisto))
+                    {
+                        sw = File.AppendText(ficheiroRegisto);
+                        sw.WriteLine(linha);
+                        sw.Close();
+                    }
+                    else
+                    {
+                        sw = File.CreateText(ficheiroRegisto);
+                        sw.WriteLine(linha);
+                        sw.Close();
+                    }
+                }
+                else
+                {
+                    Console.Write("O ficheiro não existe...");
+                }
+                Console.Write("\n\nDeseja gerar outro número? ");
+                opcao = Convert.ToChar(Console.ReadLine());
+            } while (opcao == 's' || opcao == 'S');
+
+        }
+
+        // FUNCAO QUE TROCA AS VOGAIS POR *
+        public static string escondeVogal(string palavra)
+        {
+            string novaPalavra = "";
+            for (int i = 0; i < palavra.Length; i++)
+            {
+                if (palavra[i] == 'a' || palavra[i] == 'e' || palavra[i] == 'i' || palavra[i] == 'o' || palavra[i] == 'u')
+                {
+                    novaPalavra = novaPalavra + '*';
+                }
+                else
+                {
+                    novaPalavra = novaPalavra + palavra[i];
+                }
+            }
+            return novaPalavra;
+        }
+    }
+}

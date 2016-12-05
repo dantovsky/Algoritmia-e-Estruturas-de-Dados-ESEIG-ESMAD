@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Strings
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 06
+            // 1. Elabore um algoritmo que leia uma frase e escreva os seus caracteres por ordem inversa.
+            String frase = "";
+            Console.WriteLine("Escreva uma frase: ");
+            frase = Console.ReadLine();
+
+            int comprimento_da_frase = frase.Length;
+
+            for (int i = comprimento_da_frase - 1
+                ; i >= 0
+                ; i--)
+            {
+                Console.Write(frase[i]);
+            }
+            Console.WriteLine("\n");
+        }
+    }
+}

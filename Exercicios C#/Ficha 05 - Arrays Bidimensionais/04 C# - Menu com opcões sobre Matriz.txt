@@ -1,0 +1,168 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // **********************************************************
+        //                       VARIAVEIS GLOBAIS                  *
+        // **********************************************************
+        public class Global
+        {
+            public static int ordem;        // vai estipular a ordem da matriz
+            public static int[,] matriz;    // declaração da matriz
+            public static int index_i;      // capturar o indice i do valor Max
+            public static int index_j;      // capturar o indice j do valor Max
+        }
+        // **********************************************************
+        // *                        OPCAO 1                         *
+        // **********************************************************
+        static void criarMatriz()
+        {
+            Console.Clear();
+            int maximo = int.MinValue;
+            Console.WriteLine("Indique a ordem da matriz: ");
+            Global.ordem = Convert.ToInt16(Console.ReadLine());
+
+            Global.matriz = new int[Global.ordem, Global.ordem]; // declaração de uma matriz bidimensional
+
+            Random numero_randomico = new Random(); // declaração da variável randomica
+            Console.WriteLine("\n\nMatriz ({0}x{1}): ", Global.ordem, Global.ordem);
+            for (int i = 0; i < Global.ordem; i++) // percorrer linhas
+            {
+                for (int j = 0; j < Global.ordem; j++) // percorrer colunas
+                {
+                    Global.matriz[i, j] = numero_randomico.Next(1, Global.ordem * Global.ordem);
+                    if (Global.matriz[i, j] > maximo)
+                    {
+                        maximo = Global.matriz[i, j];
+                        Global.index_i = i;
+                        Global.index_j = j;
+                    }
+                    Console.SetCursorPosition(38 + j * 7, 5 + i * 2); // variar a posição da linha e coluna
+                    Console.WriteLine(Global.matriz[i, j]);
+                }
+                // OBS: Setposition precende sempre um readline ou writeline
+            }
+            Console.WriteLine("Tecle ENTER para volar");
+            Console.ReadLine();
+        }
+
+        // **********************************************************
+        // *                        OPCAO 2                         *
+        // **********************************************************
+        static void transpostaDaMatriz(int[,] matriz)
+        {
+            Console.Clear();
+            for (int i = 0; i < Global.ordem; i++) // percorrer linhas
+            {
+                for (int j = 0; j < Global.ordem; j++) // percorrer colunas
+                {
+                    Console.SetCursorPosition(38 + j * 7, 5 + i * 2); // variar a posição da linha e coluna
+                    Console.WriteLine(matriz[j, i]);
+                }
+                // OBS: Setposition precende sempre um readline ou writeline
+            }
+            Console.WriteLine("Tecle ENTER para volar");
+            Console.ReadLine();
+        }
+        // **********************************************************
+        // *                        OPCAO 3                         *
+        // **********************************************************
+        static void valorMaximo()
+        {
+            int max = Global.matriz.Cast<int>().Max();
+            Console.Clear();
+            //------- Net -------   //---------------------------------------------------- tentar saber com o professor sobre como fazer esse código encontrado na net
+            // https://social.msdn.microsoft.com/Forums/vstudio/en-US/66bcce8d-0d29-4c55-9e35-634d37e25505/how-can-i-find-indices-of-an-element-in-2d-array?forum=csharpgeneral
+            /*
+            int found_i = -1;
+            int found_j = -1;
+
+            for (int i = 0; i < 100 && found_i < 0; ++i)
+            {
+                for (int j = 0; j < 200; ++j)
+                {
+                    if (Global.matriz[i, j] == (object)sender) // (or maybe 'object.ReferenceEqual')
+                    {
+                        found_i = i;
+                        found_j = j;
+                        break;
+                    }
+                }
+            }
+            */
+            Console.WriteLine("O valor márixo da matriz é " + max);
+            Console.WriteLine("A posição do valor máximo é a linha {0} e coluna {1}. ", Global.index_i + 1, Global.index_j + 1);
+            Console.WriteLine("\nTecle ENTER para volar");
+            Console.ReadLine();
+        }
+        // **********************************************************
+        // *             Main() -> Programa prinicipal              *
+        // **********************************************************
+        static void Main(string[] args)
+        {
+            // 04 C# - Menu com opcões sobre Matriz
+            // Realizei o exercício com prático em variáveis globais, 
+            // permitindo operar sempre sobre uma mesma matriz.
+            int opcao;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine(
+                    "\n+++          PROGRAMA MATRIZ         +++\n" +
+                    "****************************************\n" +
+                    "\nOPCOES DO MENU\n\n" +
+                    "1 - Inicializar uma matriz quadrada\n" +
+                    "2 - Imprimir a matriz transposta\n" +
+                    "3 - Determinar o valor máximo\n" +
+                    "4 - Sair do programa\n\n" +
+                    "****************************************"
+                    );
+                opcao = Convert.ToInt16(Console.ReadLine());
+                switch (opcao)
+                {
+                    case 1:
+                        // **************************** OPCAO 1 ******************************
+                        criarMatriz();
+                        break;
+                    case 2:
+                        // **************************** OPCAO 2 ****************************** 
+                        transpostaDaMatriz(Global.matriz);
+                        break;
+                    case 3:
+                        // **************************** OPCAO 3 ****************************** 
+                        valorMaximo();
+                        break;
+                    case 4: // Não faz nada e sai do programa, pois é a condição de saída.
+                        break;
+                    default:
+                        Console.SetCursorPosition(0, 10);
+                        Console.WriteLine("::MENSAGEM:: Opção inválida");
+                        Thread.Sleep(500);
+                        Console.SetCursorPosition(0, 10);
+                        Console.WriteLine("                                              ");
+                        Thread.Sleep(500);
+                        Console.SetCursorPosition(0, 10);
+                        Console.WriteLine("::MENSAGEM:: Opção inválida");
+                        Thread.Sleep(500);
+                        Console.SetCursorPosition(0, 10);
+                        Console.WriteLine("                                              ");
+                        Thread.Sleep(500);
+                        Console.SetCursorPosition(0, 10);
+                        Console.WriteLine("::MENSAGEM:: Opção inválida");
+                        //                        Thread.Sleep(500);
+                        //Console.ReadLine();
+                        break;
+                }
+            } while (opcao != 4);
+            // Console.ReadKey();
+        }
+    }
+}
+

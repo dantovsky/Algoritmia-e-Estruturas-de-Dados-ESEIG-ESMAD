@@ -1,0 +1,11 @@
+﻿Trabalho de Algoritmia
+
+Informações Gerais
+
+Terá alguma liberdade para criar as regras do jogo de acordo com o tema(tipo do jogo) escolhido.
+
+ENTREGAS
+Apresentação do trabalho: 15 de Janeiro de 2016
+
+JOGO ESCOLHIDO
+Jogo da Forca

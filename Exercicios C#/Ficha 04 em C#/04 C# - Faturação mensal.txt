@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 04 C# - Faturação mensal
+            string[] mes = new string[12]
+                {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" };
+            int[] faturacao = new int[12];
+            int maiorFaturacao = 0;
+            int menorFaturacao = int.MaxValue;
+            int indiceMaiorFaturacao = 0;
+            int indiceMenorFaturacao = 0;
+            //double mediaFatu = 0;
+            int soma = 0;
+
+            for (int i = 0; i < 12; i++)
+            {
+                Console.Write("Faturação do mês de {0}: ", mes[i]);
+                faturacao[i] = Convert.ToInt16(Console.ReadLine());
+
+                if (faturacao[i] > maiorFaturacao)
+                {
+                    maiorFaturacao = faturacao[i];
+                    indiceMaiorFaturacao = i;
+                }
+
+                if (faturacao[i] < menorFaturacao)
+                {
+                    menorFaturacao = faturacao[i];
+                    indiceMenorFaturacao = i;
+                }
+            }
+            Console.Write("\n\n(a) o mês de maior faturação: {0}, com uma faturação de {1}", mes[indiceMaiorFaturacao], maiorFaturacao);
+            Console.Write("\n\n(b) o mês de menor faturação: {0}, com uma faturação de {1}", mes[indiceMenorFaturacao], menorFaturacao);
+            Console.WriteLine("\n\n(c) média mensal de faturação: \n");
+            Console.WriteLine("MES\tMEDIA MENSAL");
+            for (int i = 0; i < 12; i++)
+            {
+                soma = soma + faturacao[i];
+                Console.Write(mes[i] + "   " + (soma * 1.0) /(i+1) + "\n");
+            }
+           // Console.Write("Nome: ");
+        }
+    }
+}

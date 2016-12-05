@@ -1,0 +1,23 @@
+﻿789;Rita;A
+987;Dante;A
+888;Bia;B
+456;Carlos;B
+654;Stella;B
+555;Leo;A
+999;Dantiii;abc
+989;Lala;C
+787;Pol;C
+456;Ruca;C
+123;Dudu;A
+231;Ritinha;B
+4445;Dandan;A
+557;Dante Ferreira Marinho;T1
+456;Rita Pinheiro;T1
+7897;José Marinho Filho;T1
+222;Dadanildo Legionário;T2
+454;Daniel;T2
+254;Marcelo Lindo;T2
+255;Tita Lindo;T2
+159;Ratimbum Castelo;T2
+656;Beto Silva;C
+545;Paola Lobão;C

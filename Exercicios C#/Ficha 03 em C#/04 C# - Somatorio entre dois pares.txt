@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 03, questão 04 | Somatório entre dois números pares
+            int num = 0;
+            int quantPar = 0;
+            int somatorio = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write("Insira um número: ");
+                num = Convert.ToInt16(Console.ReadLine());
+                if (num % 2 == 0 && quantPar < 2)
+                {
+                    quantPar++;
+                    if (quantPar > 2)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        somatorio = somatorio + num;
+                    }
+                }
+                else
+                {
+                    if (quantPar == 0 || quantPar >= 2)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        somatorio = somatorio + num;
+                    }
+                }
+            } // fim do for
+
+            if (quantPar < 2)
+            {
+                Console.WriteLine(-1);
+            }
+            else
+            {
+                Console.WriteLine("Somatório entre os dois pares: " + somatorio);
+            }
+        }
+    }
+}

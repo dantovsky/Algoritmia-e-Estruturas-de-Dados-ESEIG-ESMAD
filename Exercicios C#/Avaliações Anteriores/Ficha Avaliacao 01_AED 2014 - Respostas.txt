@@ -1,0 +1,139 @@
+//////////// 01 /////////////
+
+// Programa que verifica se é número defetivo
+inicio
+    inteiro num , i , somatorio
+    texto opcao
+    
+    faz
+        escrever "Indique um número: "
+        ler num
+        
+        para i de 1 ate num / 2
+            se num % i = 0 entao
+                somatorio <- somatorio + i
+            fim se
+        proximo
+        
+        se somatorio < num entao
+            escrever "Número defetivo!"
+        senao
+            escrever "Número não defetivo"
+        fim se
+        escrever "\n\nTestar novo número? "
+        ler opcao
+    enquanto opcao = "s"
+fim
+
+
+
+//////////// 02 /////////////
+
+// 04 - Le 8 postos de trabalho, num camisas produzidas e metros de tecidos gastos e retorna o posto menos eficiente (o que gastou mais tecido por cada camisa)
+inicio
+    inteiro i , num_camisas , tecido_gasto , posto_menor_desempenho
+    real producao , menor_desempenho <- 0
+    
+    para i de 0 ate 4
+        escrever "Posto " , i + 1 , "(metros , camisas produzidas): "
+        ler num_camisas
+        ler tecido_gasto
+        
+        // o valor 1.0 serve apenas para fazer com que a conta seja convertida para real
+        // ela não irá afetar o resultado, por ser multiplicação por 1
+        producao <- tecido_gasto * 1.0 / num_camisas
+        
+        se producao > menor_desempenho entao
+            posto_menor_desempenho <- i + 1
+            menor_desempenho <- producao
+        fim se
+    proximo
+    
+    escrever "O posto com menor desempenho foi o posto " , posto_menor_desempenho , " com " , menor_desempenho , " metros gastos por camisa."
+fim
+
+/////////// 04 tentativa falhada //////////
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // C# Questão 4 - Teste 2014-15
+            Console.WriteLine("Quantos elementos deseja na lista? ");
+            int n = Convert.ToInt16(Console.ReadLine());
+
+            int[] lista1 = new int[n];
+            int[] lista2 = new int[n];
+
+            Console.WriteLine("Insira os valores na lista: ");
+            for (int i = 0; i < n; i++)
+            {
+                lista1[i] = Convert.ToInt16(Console.ReadLine());
+            }
+
+            // Lista inicial
+            Console.WriteLine("Lista inicial");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(lista1[i] + " ");
+            }
+
+            // Transformação para a lista2
+            bool repetido = false;
+            int k = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n-1; j++)
+                {
+                    if (lista1[j] == lista1[j + 1])
+                        repetido = true;
+                }
+                if (repetido == false)
+                {
+                    lista2[k] = lista1[i];
+                    k++;
+                }
+                  
+            }
+            Console.WriteLine("Lista modificada sem repetições");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(lista2[i] + " ");
+            }
+            Console.ReadLine();
+        }
+    }
+}
+
+
+/*  do
+                {
+                    int j = i;
+                    if (j == 0)
+                        lista2[j] = Convert.ToInt16(Console.ReadLine());
+                    else if (lista1[j] == lista1[j - 1])
+                    {
+                        lista2[j] = Convert.ToInt16(Console.ReadLine());
+                        break;
+                    }
+                    else
+                        j--;
+               } while (i != 0);
+               
+                 
+               if (i == 0)
+                    lista2[i] = Convert.ToInt16(Console.ReadLine());
+                else
+                    while (true)
+                    {
+
+                    }
+                    */

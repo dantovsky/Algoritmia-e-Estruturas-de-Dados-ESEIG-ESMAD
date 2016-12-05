@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExerciciosCSharp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            /// Ficha 04 | 13. Dados dois arrays de N elementos cada um, 
+            /// ordenados, o seu algoritmo deve juntar os dois array (merge) 
+            /// num terceiro, mantendo a ordenação
+            
+            int[] array1 = new int[5];
+            int[] array2 = new int[5];
+            int[] merge = new int[10];//Junção dos dois arrays
+
+            //Primeiro array
+            Console.WriteLine("Insira os numeros do primeiro array: ");
+            for (int i = 0; i < 5; i++)
+            {
+                array1[i] = Convert.ToInt16(Console.ReadLine()); 
+            }
+
+            //Ordenar o primeiro Array
+            Array.Sort(array1);
+
+            Console.WriteLine("Insira os numeros do segundo array: ");
+            for (int i = 0; i < 5; i++)
+            {
+                array2[i] = Convert.ToInt16(Console.ReadLine());
+            }
+            Array.Sort(array2);
+
+            int j = 0;
+            for (int i = 0; i < 10; i++)
+            {                
+                /// Quando terminar de reencher a lista 1
+                /// vai começar a preencher a lista 2
+                /// o índice "j" serve para preencher 
+                /// cada lista desde 0 até o seu último índice
+                
+                if (i < 5)
+                {
+                    merge[i] = array1[j];
+                    j++;
+                }
+                else
+                {
+                    merge[i] = array2[j];
+                    j++;
+                }
+
+                if (j == 5)
+                    j = 0;
+            }//Fim do For
+
+            Array.Sort(merge);
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write("{0} ", merge[i]);
+            }
+            Console.ReadLine();
+        }
+    }
+}

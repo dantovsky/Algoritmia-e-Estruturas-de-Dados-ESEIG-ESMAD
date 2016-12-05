@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Digite o numero em Binário");
+            string str = Console.ReadLine();
+            Console.ReadLine();
+        }
+        
+        public static int BinarioParaDecimal(string valorBinario)
+
+        {
+            int expoente = 0;
+            int numero;
+            int soma = 0;
+
+            string numeroInvertido = InverterString(valorBinario);
+            for (int i = 0; i < numeroInvertido.Length; i++)
+            {
+                //Pega digito por digito do número digitado
+
+                numero = Convert.ToInt32(numeroInvertido.Substring(i, 1));
+
+                //multiplica o digito por 2 elevado ao expoente, e armazena o resultado em soma
+
+                soma += numero * (int)Math.Pow(2, expoente);
+
+                //incrementa o expoente
+
+                expoente++;
+
+            }
+
+            return soma;
+        }
+
+         public static string InverterString(string str)
+        {
+            int tamanho = str.Length;
+
+            char[] caracteres = new char[tamanho];
+
+            for (int i = 0; i < tamanho; i++)
+            {
+                caracteres[i] = str[tamanho - 1 - i];
+            }
+
+            return new string(caracteres);
+            
+        }
+    }
+}

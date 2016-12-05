@@ -1,0 +1,364 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Exercicios
+{
+    class Program
+    {
+        // Ficha 08 | 01 - Cadastro Aluno com Encriptação e Desencrip e opções de Alterar e Deletar um registo
+        //------------------------
+        // 1 - REGISTAR UM ALUNO
+        //------------------------
+        static void registoAluno()
+        {
+            // Imprime os atributos a ler
+            Console.Clear();
+            Console.SetCursorPosition(5, 2);
+            Console.WriteLine("CADASTRO DE NOVO ALUNO\n\n");
+            Console.SetCursorPosition(5, 4);
+            Console.WriteLine("Número : ");
+            Console.SetCursorPosition(5, 5);
+            Console.WriteLine("Nome   : ");
+            Console.SetCursorPosition(5, 6);
+            Console.WriteLine("Turma  : ");
+
+            // Leitura dos atributos e criação das variáveis: número, nome e turma
+            Console.SetCursorPosition(15, 4);
+            int numero = int.Parse(Console.ReadLine());
+            Console.SetCursorPosition(15, 5);
+            string nome = Console.ReadLine();
+            Console.SetCursorPosition(15, 6);
+            string turma = Console.ReadLine();
+
+            // Grava dados em ficheiro
+            // Criação do ficheiro
+            string ficheiroRegisto = @"alunos_encript.txt";
+            StreamWriter registar;  // StreamWriter ou StreamReader faz a ponte de ligação entre o ficheiro e os comandos do programa
+            if (File.Exists(ficheiroRegisto) == true)
+            {
+                registar = File.AppendText(ficheiroRegisto);
+            }
+            else
+            {
+                registar = File.CreateText(ficheiroRegisto);
+            }
+            // Grava no ficheiro
+            string linha = numero.ToString() + ";" + nome + ";" + turma;
+            linha = encriptar(linha);  // ENCRIPTAR A LINHA PARA O FICHEIRO >> chamada para a função encriptar()
+            registar.WriteLine(linha);
+            registar.Close();
+        }
+        //------------------------
+        // ENCRIPTAR
+        //------------------------
+        static string encriptar(string linha)
+        {
+            string novaLinha = "";
+            for (int i = 0; i < linha.Length; i++)
+            {
+                int code = Convert.ToInt16(linha[i]);
+                code = code + 3;
+                novaLinha = novaLinha + Convert.ToChar(code);  // 3 é uma chave
+            }
+            return novaLinha;
+        }
+
+        //------------------------
+        // DESENCRIPTAR
+        //------------------------
+        static string desencriptar(string linha)
+        {
+            string novaLinha = "";
+            for (int i = 0; i < linha.Length; i++)
+            {
+                int code = Convert.ToInt16(linha[i]);
+                code = code - 3;
+                novaLinha = novaLinha + Convert.ToChar(code);  // 3 é uma chave
+            }
+            return novaLinha;
+        }
+
+        //------------------------
+        // 2 - CONSULTA GERAL
+        //------------------------
+        static void consultaGeralAlunos()
+        {
+            Console.Clear();
+            int lin = 5;
+            string ficheiroRegisto = @"alunos_encript.txt";
+            StreamReader consultar;
+
+            // verifica se o ficheiro existe
+            if (File.Exists(ficheiroRegisto) == true)
+            {
+                Console.SetCursorPosition(5, lin - 3); Console.WriteLine("-----------------------------------------");
+                Console.SetCursorPosition(5, lin - 2); Console.WriteLine("NUMERO\tNOME\t\t\tTURMA");
+                Console.SetCursorPosition(5, lin - 1); Console.WriteLine("-----------------------------------------");
+
+                consultar = File.OpenText(ficheiroRegisto); // abre o ficheiro para leitura
+                string linha = "";
+                while ((linha = consultar.ReadLine()) != null)  // Lê ficheiro até ao final
+                {
+                    linha = desencriptar(linha); // DESENCRIPTAR A LINHA DO FICHEIRO
+                    int pos = linha.IndexOf(";");
+                    string num = linha.Substring(0, pos);   //Obtem o 1º campo de cada linha
+
+                    // Refaz a variavel linha. a partir do 1º ";" até ao final da linha
+                    linha = linha.Substring(pos + 1, linha.Length - pos - 1);
+
+                    pos = linha.IndexOf(";");
+                    string nome = linha.Substring(0, pos);
+                    string turma = linha.Substring(pos + 1, linha.Length - pos - 1);
+
+                    // Immprime os dados
+                    Console.SetCursorPosition(5, lin);
+                    Console.WriteLine(num);
+                    Console.SetCursorPosition(16, lin);
+                    Console.WriteLine(nome);
+                    Console.SetCursorPosition(40, lin);
+                    Console.WriteLine(turma);
+                    lin++;
+                }
+                consultar.Close();  // fecha o ficheiro
+            }
+            else
+            {
+                Console.WriteLine("******************");
+                Console.WriteLine("*    MENSAGEM    *   »  Não existe nenhum ficheiro de registo.");
+                Console.WriteLine("******************\n\n");
+            }
+            Console.ReadLine();
+        }
+        //----------------------------------
+        // 3 - CONSULTA ALUNOS POR TURMA
+        //----------------------------------
+        // Nesta opção, é pedida qual a turma que deseja consultar, 
+        // e então é listada todos os alunos desta mesma turma
+        static void consultaAlunosTurma()
+        {
+            Console.Clear();
+            int lin = 5;
+            string ficheiroRegisto = @"alunos_encript.txt";
+            StreamReader consultar;
+            bool existeRegisto = false;
+
+            // verifica se o ficheiro existe
+            if (File.Exists(ficheiroRegisto) == true)
+            {
+                // Pede a turma que o utilizador deseja listar
+                Console.Write("Turma? ");
+                //char turmaProcurada = Convert.ToChar(Console.ReadLine());
+                string turmaProcurada = Console.ReadLine();
+
+                Console.SetCursorPosition(5, lin - 3); Console.WriteLine("-----------------------------------------");
+                Console.SetCursorPosition(5, lin - 2); Console.WriteLine("NUMERO\tNOME\t\t\tTURMA");
+                Console.SetCursorPosition(5, lin - 1); Console.WriteLine("-----------------------------------------");
+
+                consultar = File.OpenText(ficheiroRegisto); // abre o ficheiro para leitura
+                string linha = "";
+                while ((linha = consultar.ReadLine()) != null)  // Lê ficheiro até ao final
+                {
+                    linha = desencriptar(linha);    // DESENCRIPTAR LINHA DO REGISTO   
+                    int pos = linha.IndexOf(";");
+                    if (linha.Substring
+                        (linha.LastIndexOf(";") + 1, (linha.Length - 1) - (linha.LastIndexOf(";")))
+                        == turmaProcurada)
+                    // if (linha[linha.Length - 1] == turmaProcurada) // outra opcao para caso de turma com uma letra
+                    {
+                        string num = linha.Substring(0, pos);   //Obtem o 1º campo de cada linha
+
+                        // Refaz a variavel linha. a partir do 1º ";" até ao final da linha
+                        linha = linha.Substring(pos + 1, linha.Length - pos - 1);
+
+                        pos = linha.IndexOf(";");
+                        string nome = linha.Substring(0, pos);
+                        string turma = linha.Substring(pos + 1, linha.Length - pos - 1);
+
+                        // Immprime os dados
+                        Console.SetCursorPosition(5, lin);
+                        Console.WriteLine(num);
+                        Console.SetCursorPosition(16, lin);
+                        Console.WriteLine(nome);
+                        Console.SetCursorPosition(40, lin);
+                        Console.WriteLine(turma);
+                        lin++;
+
+                        existeRegisto = true;
+                    }
+                }
+                consultar.Close();  // fecha o ficheiro
+
+                // Mensagem caso não tenha nenhum registo da turma pesuqisada
+                if (existeRegisto == false)
+                {
+                    Console.SetCursorPosition(5, lin); Console.WriteLine("Nao há registos desta turma \"{0}\"", turmaProcurada);
+                }
+            }
+            else
+            {
+                Console.WriteLine("******************");
+                Console.WriteLine("*    MENSAGEM    *   »   Não existe nenhum ficheiro de registo.");
+                Console.WriteLine("******************\n\n");
+            }
+            Console.ReadLine();
+        }
+        //----------------------------------
+        // 4 - ALTERAR REGISTO
+        //----------------------------------
+        static void alterarRegisto()
+        {
+            string ficheiroRegisto = @"alunos_encript.txt";
+            string ficheiroRegisto_temp = @"alunos_encript_temp.txt";
+            Console.Write("\nInsira o número do aluno que deseja alterar do registo: ");
+            string registoAluno = Console.ReadLine();
+            StreamReader sr;
+            StreamWriter sw;
+            sr = File.OpenText(ficheiroRegisto);
+            sw = File.CreateText(ficheiroRegisto_temp);
+            string linha = "";
+            bool encontrou = false;
+            while ((linha = sr.ReadLine()) != null)
+            {
+                // DESENCRIPTAR LINHA DO REGISTO
+                linha = desencriptar(linha);
+
+                // CRIA UM ARRAY COM 3 CAMPOS
+                string[] campos = new string[3];
+
+                // COLOCA CADA PARTE DA LINHA DENTRO DE UM CAMPO DO ARRAY
+                // CADA UMA DESTAS PARTES DIVIDIDAS PELO ";"
+                campos = linha.Split(';');
+
+               if (registoAluno == campos[0])
+                {
+                    encontrou = true;
+                    Console.WriteLine("\nAlteração para o usuário: \nNº: {0}\nNome: {1}\nTurma: {2}", campos[0], campos[1], campos[2]);
+                    Console.Write("\nNovo nº: ");       campos[0] = Console.ReadLine();
+                    Console.Write("Novo nome: ");     campos[1] = Console.ReadLine();
+                    Console.Write("Nova turma: ");    campos[2] = Console.ReadLine();
+
+                    // Concatena informação do novo user
+                    linha = campos[0] + ";" + campos[1] + ";" + campos[2];
+
+                    // Encripta a linha nova
+                    linha = encriptar(linha);
+                    sw.WriteLine(linha);
+                }
+                else
+                {
+                    linha = encriptar(linha);
+                    sw.WriteLine(linha);
+                }
+            }
+            sr.Close();
+            sw.Close();
+            File.Delete(ficheiroRegisto);
+            File.Move(ficheiroRegisto_temp, @"alunos_encript.txt");
+            if (encontrou == false)
+            {
+                Console.WriteLine("Este aluno com o número {0} não existe.", registoAluno);
+            }
+            Console.ReadLine();
+        }
+        //----------------------------------
+        // 5 - DELETAR REGISTO
+        //----------------------------------
+        static void deletarRegisto()
+        {
+            consultaGeralAlunos();
+            string ficheiroRegisto = @"alunos_encript.txt";
+            string ficheiroRegisto_temp = @"alunos_encript_temp.txt";
+            Console.Write("Insira o número do aluno que deseja remover do registo: ");
+            string registoAluno = Console.ReadLine();
+            bool encontrou = true;
+            StreamReader sr;
+            StreamWriter sw;
+            sr = File.OpenText(ficheiroRegisto);
+            sw = File.CreateText(ficheiroRegisto_temp);
+            string linha = "";
+            while ((linha = sr.ReadLine()) != null)
+            {
+                // DESENCRIPTAR LINHA DO REGISTO
+                linha = desencriptar(linha);
+                if (registoAluno != linha.Substring(0, linha.IndexOf(";")))
+                {
+                    linha = encriptar(linha);
+                    sw.WriteLine(linha);
+                }
+                else
+                {
+                    Console.Write("Foi deletado o aluno com o registo nº {0} ", registoAluno);
+                    encontrou = false;
+                }
+            }
+            sr.Close();
+            sw.Close();
+            File.Delete(ficheiroRegisto);
+            File.Move(ficheiroRegisto_temp, @"alunos_encript.txt");
+            if (encontrou == true)
+            {
+                Console.Write("\nAluno com o registo nº {0} não encontrado.", registoAluno);
+            }
+            Console.ReadLine();
+        }
+        //----------------------------------
+        // Programa Principal
+        //----------------------------------
+        static void Main(string[] args)
+        {
+            // Exercícios sobre Ficheiros
+            // Númnero
+            // Nome
+            // Turma
+            char opcao = ' ';
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("\n\n-----------------------------");
+                Console.WriteLine("\tMENU");
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("1 - Criar Registo de Aluno");
+                Console.WriteLine("2 - Consultar lista geral de alunos");
+                Console.WriteLine("3 - Consultar alunos por turma");
+                Console.WriteLine("\n - ----- Opções Bônus -----");
+                Console.WriteLine("4 - Alterar Registo de Alulno");
+                Console.WriteLine("5 - Deletar Um Registo");
+                Console.WriteLine("0 - Sair");
+
+                Console.Write("\nOpção: ");
+                opcao = Convert.ToChar(Console.ReadLine());
+                switch (opcao)
+                {
+                    case '1':
+                        registoAluno(); // feito
+                        break;
+                    case '2':
+                        consultaGeralAlunos(); // feito
+                        break;
+                    case '3':
+                        consultaAlunosTurma(); // feito
+                        break;
+                    case '4':
+                        alterarRegisto(); // feito
+                        break;
+                    case '5':
+                        deletarRegisto(); // feito
+                        break;
+                    default:
+                        if (opcao != '0')
+                            Console.WriteLine("Opção inválida!");
+                        else
+                            Console.WriteLine("Saindo do programa... <\"ENTER\" para sair>");
+                        break;
+                }
+
+            } while (opcao != '0');
+
+            //  Console.ReadLine();
+        }
+    }
+}

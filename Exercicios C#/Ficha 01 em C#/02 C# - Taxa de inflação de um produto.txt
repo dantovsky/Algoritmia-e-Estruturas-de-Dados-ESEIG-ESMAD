@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 02 C# - Taxa de inflação de um produto
+            int atual, anterior;
+            double taxa;
+
+            Console.WriteLine("Custo atual do produto: ");
+            atual = Convert.ToInt16(Console.ReadLine());
+
+            Console.WriteLine("Custo anterior do produto: ");
+            anterior = Convert.ToInt16(Console.ReadLine());
+
+            taxa = (atual- Convert.ToDouble(anterior)) / anterior;
+            // converti apenas o palor anterior para double para 
+            // obter um resultado como double
+
+
+            Console.WriteLine("Custo atual: " + atual);
+            Console.WriteLine("Custo anterior: " + anterior);
+            Console.WriteLine("Taxa de inflação: " + taxa);
+        }
+    }
+}

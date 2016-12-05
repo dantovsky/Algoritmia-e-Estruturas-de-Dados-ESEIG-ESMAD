@@ -1,0 +1,33 @@
+﻿inicio
+    inteiro op,i
+    inteiro ticket[20]<-{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+    repete//até o utilizador digitar 0
+        escrever "\t1-MENU"
+        escrever "\t2-Tirar Ticket"
+        escrever "\t3-Atendimento"
+        escrever "\t4-Estado da Fila de Espera"
+        escrever "\t5-Sair"
+        
+        escrever "Escolher opção"
+        ler op
+        
+ escolhe op
+    caso 1: i <- 0
+            enquanto ticket[i] =/= 0 e i < 20 faz
+                i <- i + 1
+             Fim enquanto 
+             se i = 20 entao 
+                 Escrever "\n\n Fila Cheia \n\n"
+             senao 
+                 ticket[i]<-1
+                 Escrever "\n\n Ticket Nº",i+1,"\n\n"
+              Fim se 
+    caso 2: atendimento
+    caso 3: estado da fila de espera
+    caso 4: sair
+fim escolhe
+ate op = 0
+
+
+fim
+

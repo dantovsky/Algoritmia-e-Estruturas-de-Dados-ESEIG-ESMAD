@@ -1,0 +1,47 @@
+using System;
+
+namespace ExerciciosCSharp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 04 - Questão 11 | Array de N elementos, pesquisa quantidade de vezes de um valor
+            int tamanhoArray = 0;
+            int pesquisa = 0;
+            int cont = 0;
+
+            Console.WriteLine("Introduza o tamanho da lista de números: ");
+            tamanhoArray = Convert.ToInt16(Console.ReadLine());
+
+            int[] lista = new int[tamanhoArray];
+
+            // RECEBER OS DADOS NO ARRAY
+            for (int i = 0; i < lista.Length; i++)
+            {
+                Console.Write("Introduza o {0}º numero: ", i + 1);
+                lista[i] = Convert.ToInt16(Console.ReadLine());
+            }
+
+            // APRESENTAR A LISTA FEITA
+            Console.Write("\n\nLista: ");
+            for (int i = 0; i < lista.Length; i++)
+            {
+                Console.Write("{0} ", lista[i]);
+            }
+
+            Console.Write("\n\nEscolha um número para pesquisar quantas vezes ocorreu: ");
+            pesquisa = Convert.ToInt16(Console.ReadLine());
+
+            // VERIFICA A QUANTIDADE DE OCORRENCIA DO NÚMERO PESQUISADO
+            for (int i = 0; i < lista.Length; i++)
+            {
+                if (pesquisa == lista[i])
+                {
+                    cont++;
+                }
+            }
+            Console.Write("\nO número {0} ocorreu {1} vezes.\n\n", pesquisa, cont);
+        }
+    }
+}

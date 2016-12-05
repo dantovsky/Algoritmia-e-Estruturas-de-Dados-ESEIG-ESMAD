@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 06 C# - Sequência de Fibonacci
+            int num_termos = 0, aux1 = 0, aux2 = 1, temp = 0;
+            Console.WriteLine("Número de termos para a sequência de Fibonacci: ");
+            num_termos = Convert.ToInt16(Console.ReadLine());
+
+            /* // pelo que o exercicio pede é assim, mas segui como é na sequência de Fibonacci
+            if (num_termos == 1)
+                Console.WriteLine("0");
+            else if (num_termos == 2)
+                Console.WriteLine("1");
+            else
+                Console.Write("0 1 ");
+                */
+            Console.BackgroundColor = ConsoleColor.Magenta;
+            if (num_termos == 1)
+                Console.WriteLine("0");
+            else if (num_termos >= 2)
+                Console.Write("0 1 ");
+            for (int i = 3; i <= num_termos; i++)
+            {
+                Console.Write(aux1 + aux2 + " ");
+                temp = aux1;
+                aux1 = aux2;
+                aux2 = aux2 + temp; 
+            }
+            Console.WriteLine("\n");
+        }
+    }
+}

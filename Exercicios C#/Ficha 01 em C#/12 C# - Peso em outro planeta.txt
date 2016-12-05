@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 12 C# - Peso em outro planeta
+
+            // Tabela dos planetas
+            Console.WriteLine("\t ~~~ TABELA DOS PLANETAS ~~~\n");
+            Console.WriteLine("Código\t\tPlaneta\t\tGravidade Relativa");
+            Console.WriteLine("1\t\tMercúrio\t0.37");
+            Console.WriteLine("2\t\tVénus\t\t0.88");
+            Console.WriteLine("3\t\tMarte\t\t0.38");
+            Console.WriteLine("4\t\tJúpiter\t\t2.64");
+            Console.WriteLine("5\t\tSaturno\t\t1.15");
+            Console.WriteLine("6\t\tUrano\t\t1.17");
+
+
+            Console.WriteLine("\nIndique o seu peso no planeta Terra: ");
+            int peso = Convert.ToInt16(Console.ReadLine());
+            Console.WriteLine("\nIndique o código do planeta onde deseja saber o teu peso: ");
+            int planeta = Convert.ToInt16(Console.ReadLine());
+
+            Console.BackgroundColor = ConsoleColor.Blue;
+            switch (planeta)
+            {
+                case 1:
+                    Console.WriteLine("Peso em Mercúrio: " + (peso * 0.37));
+                    break;
+                case 2:
+                    Console.WriteLine("Peso em Vénus: " + (peso * 0.88));
+                    break;
+                case 3:
+                    Console.WriteLine("Peso em Marte: " + (peso * 0.38));
+                    break;
+                case 4:
+                    Console.BackgroundColor = ConsoleColor.DarkRed; // experimento
+                    Console.WriteLine("Peso em Júpiter: " + (peso * 2.64));
+                    break;
+                case 5:
+                    Console.WriteLine("Peso em Saturno: " + (peso * 1.15));
+                    break;
+                case 6:
+                    Console.WriteLine("Peso em Urano: " + (peso * 1.17));
+                    break;
+                default:
+                    Console.WriteLine("Valor não válido");
+                    break;
+            }
+
+        }
+    }
+}

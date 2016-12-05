@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 05 C# - Primo de um número
+            int num = 0;
+            bool flag = false;
+            //int conta = 0; //testei para ver se o break parava na mesmo na primeira iteração falsa
+
+            Console.WriteLine("Digite um número para saber se é primo: ");
+            num = Convert.ToInt16(Console.ReadLine());
+
+            for (int i = 2; i <= num / 2; i++)
+            {
+                if (num % i == 0)
+                {
+                    flag = true; // Verdade que encontrou um resto 0, logo não é primo!
+                    //conta++;
+                    break;
+                }
+            }
+
+            // Verificação da variavel booleana "flag"
+            if (num == 1)
+                Console.WriteLine("não é primo...");
+            else if (flag == false)
+                Console.WriteLine("é primo... ");
+            else
+                Console.WriteLine("não é primo...");
+        }
+    }
+}

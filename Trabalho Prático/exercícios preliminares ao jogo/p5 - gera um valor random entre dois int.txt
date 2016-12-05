@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // Recebe 2 int e gera um valor aleatório entre estes dois valores
+        static void Main(string[] args)
+        {
+            Console.Write("Insira um int: ");
+            int a = Convert.ToInt16(Console.ReadLine());
+
+            Console.Write("Insira outr int: ");
+            int b = Convert.ToInt16(Console.ReadLine());
+
+            Random rand = new Random();
+            int aleatorio = rand.Next(a, b + 1);
+            Console.WriteLine("Valor gerado aleatoriamente entre [{0}...{1}]: {2}", a, b, aleatorio);
+        }
+    }
+}

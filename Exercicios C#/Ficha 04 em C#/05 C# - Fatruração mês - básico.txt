@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication8
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+           ;
+            string[] mes = new string[12] {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro",
+                                             "Outubro", "Novembro", "Dezembro"};
+            int [] faturacao = new int[12];
+            int mes_maior = 0;
+            int mes_menor = 0;
+            int maior = 0, menor = 0;
+            for (int i = 0; i < 12; i++)
+            {
+                Console.SetCursorPosition(10, 10);
+                Console.Write("Faturação de {0}:               ", mes[i]);
+                Console.SetCursorPosition(31, 10);
+                faturacao[i] = Convert.ToInt16(Console.ReadLine());
+                if (i == 0) 
+                  {
+                    maior = faturacao[0];
+                    menor = faturacao[0];
+                  }
+                else
+                  {
+                      if (faturacao[i] > maior)
+                      {
+                          maior = faturacao[i];
+                          mes_maior = i;
+                      }
+                      else
+                      {
+                          if (faturacao[i] < menor)
+                          {
+                              menor = faturacao[i];
+                              mes_menor = i;
+                          }
+                      }
+                  }
+                    
+                } /// for
+
+            Console.WriteLine("Mês de maior faturação: {0}", mes[mes_maior]);
+            Console.WriteLine("Mês de menor faturação: {0}", mes[mes_menor]);    
+            Console.ReadLine();
+        }
+    }
+}

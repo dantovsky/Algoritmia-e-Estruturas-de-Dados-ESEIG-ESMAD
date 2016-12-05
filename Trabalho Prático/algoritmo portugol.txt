@@ -1,0 +1,37 @@
+// Programa que irá ordenar dois arrays contendo nome e pontuação de 15 jogadores
+// O usuário do programa deverá inserir valores para a pontuação referente a cada nome
+inicio
+    inteiro pontos [ 15 ]
+    texto jogador [ 15 ] <- {"António" , "Mário" , "Augusto" , "Bárbara" , "Dante" , "Michele" , "Violeta" , "Eduardo" , "Samanta" , "Pedro" , "Patrícia" , "Nelson" , "Ágata" , "Saimon" , "Maria"}
+    texto nometemp
+    inteiro pontostemp , i , j
+    
+    // INSERÇÃO DA PONTUAÇÃO
+    para i de 0 ate 14
+        escrever jogador [ i ] , ": "
+        ler pontos [ i ]
+    proximo
+    
+    // ORDENAÇÃO DOS ARRAYS
+    para i de 0 ate 13
+        para j de i + 1 ate 14
+            se pontos [ i ] < pontos [ j ] entao
+                // ORDENA PONTOS
+                pontostemp <- pontos [ i ]
+                pontos [ i ] <- pontos [ j ]
+                pontos [ j ] <- pontostemp
+                
+                // ORDENA NOMES
+                nometemp <- jogador [ i ]
+                jogador [ i ] <- jogador [ j ]
+                jogador [ j ] <- nometemp
+            fim se
+        proximo
+    proximo
+    
+    // APRESENTA O ARRAY ORDENADO
+    para i de 0 ate 14
+        escrever "\n" , jogador [ i ] , "\t\t" , pontos [ i ]
+    proximo
+fim
+

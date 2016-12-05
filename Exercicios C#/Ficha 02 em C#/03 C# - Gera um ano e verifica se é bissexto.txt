@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 03 C# - Gera um ano e verifica se é bissexto
+            Random rand = new Random();
+            int ano = 1996; //rand.Next(1900, 2013);
+
+            Console.WriteLine("Ano gerado: {0}: ", ano);
+            if (ano % 4 == 0 && (ano % 100 != 0 && ano % 400 != 0))
+            // a linha de cima parece funcionar, mas acho que o mais correto seria:
+            // if ((ano % 4 == 0 && ano % 100 != 0) || ano % 400 == 0)
+            {
+                Console.WriteLine("Ano bissexto");
+            }
+            else
+            {
+                Console.WriteLine("Não é ano bissexto");
+            }
+
+        }
+    }
+}

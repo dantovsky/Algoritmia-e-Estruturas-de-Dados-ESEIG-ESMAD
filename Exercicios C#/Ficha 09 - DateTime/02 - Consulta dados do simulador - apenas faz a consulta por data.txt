@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 09 - DateTime | Exercicio 2 - Consulta dos dados do simulador do exercício 01
+            // ler data
+            // obter nº dia do ano
+            // nome ficheiro
+            // consulta
+
+            Console.Write("insira uma data: ");
+            DateTime dataUser = Convert.ToDateTime(Console.ReadLine());
+            string diaDoAno = Convert.ToString(dataUser.DayOfYear); // obtem o dia do ano em funcao da data que o user introduziu
+            string ficheiro = @"temp" + diaDoAno + ".txt";  // declara e assina uma variável string com o nome tempXXX.txt, onde XXX é o dia do ano
+
+            StreamReader sr;    // Inicia o Stream para leitura de ficheiros (StreamReader) 
+            if (File.Exists(ficheiro) == true)
+            {
+                Console.WriteLine("\nData\t\tHora\t\tTemperatura");
+                Console.WriteLine("-------------------------------------------");
+                sr = File.OpenText(ficheiro);   // abre o ficheiro para leitura
+                string linha = "";
+                while ((linha = sr.ReadLine()) != null) // lê o ficheiro até o final
+                {
+                    string[] campos = new string[3];
+                    campos = linha.Split(';');  // a função Split separa "linha" pelos ";" para um array
+
+                    if (campos[0] == Convert.ToString(dataUser.ToString("yyyy-MM-dd")))
+                    {
+                        Console.WriteLine(campos[0] + "\t" + campos[1] + "\t" + campos[2]);
+                    }
+                }
+            }
+            else
+            {
+                Console.Write("O ficheiro não existe.");
+            }
+            Console.ReadLine();
+        }
+    }
+}

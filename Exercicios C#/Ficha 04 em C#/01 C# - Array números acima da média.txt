@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 01 C# - Array números acima da média
+            int[] lista = new int[10];
+            double media = 0;
+            int cont = 0;
+            int soma = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                lista[i] = Convert.ToInt16(Console.ReadLine());
+                soma = soma + lista[i];
+            }
+            media = soma / 10;
+            //Console.WriteLine(media);
+            for (int i = 0; i < 10; i++)
+            {
+                if (lista[i] > media)
+                {
+                    cont = cont + 1;
+                }
+            }
+            Console.WriteLine("Média = {0}", media);
+            Console.WriteLine("Estão acima da média {0} números. ", cont);
+        }
+    }
+}

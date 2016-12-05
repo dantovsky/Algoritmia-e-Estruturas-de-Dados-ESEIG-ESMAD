@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 02 C# - Lista conta pares, ímpares e maior número
+            int numero, pares=0, impares=0, maior = int.MinValue; // int.MinValue devolve o menor valor inteiro possível 
+            Console.WriteLine("Insira 10 números inteiros: maior =  {0}", maior);
+            for (int i = 0; i < 10; i++)
+            {
+                numero = Convert.ToInt16(Console.ReadLine());
+                if (numero % 2 == 0)
+                    pares++;
+                else
+                    impares++;
+
+                if (numero >= maior)
+                {
+                    maior = numero;
+                }
+            }
+
+            Console.WriteLine("Pares: {0} \nÍmpares: {1} \nMaior número da lista: {2}", pares, impares, maior);
+        }
+    }
+}

@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 05 C# - IMC
+
+            double peso, altura, result;
+            Console.Write("Indique o seu peso: ");
+            peso = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Indique a sua altura: ");
+            altura = Convert.ToDouble(Console.ReadLine());
+
+            result = peso / Math.Pow(altura, 2); // potência
+
+            Console.WriteLine("IMC = {0}", result);
+        }
+    }
+}

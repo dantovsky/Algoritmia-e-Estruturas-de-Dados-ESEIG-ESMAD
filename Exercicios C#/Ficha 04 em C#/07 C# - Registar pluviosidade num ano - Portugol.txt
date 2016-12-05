@@ -1,0 +1,31 @@
+﻿// 07 - Registar pluviosidade de cada mês ao longo de um ano
+
+inicio
+inteiro valor[12], i, j, temp
+texto mes[12] <- {"Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez",}
+texto temp_mes
+
+para i de 0 ate 11
+    ler valor[i]
+proximo
+
+para i de 0 ate 10
+    para j de i + 1 ate 11
+        se valor[i] < valor[j] entao
+            temp <- valor[i]
+            valor[i] <- valor[j]
+            valor[j] <- temp
+             
+            // troca nome do mês
+            temp_mes <- mes[i]
+            mes[i] <- mes[j]
+            mes[j] <- temp_mes  
+        fim se 
+    proximo
+proximo
+
+// Apresentar a nova array
+para i de 0 ate 11
+    escrever "\n", mes[i], "\t",valor[i]
+proximo
+fim

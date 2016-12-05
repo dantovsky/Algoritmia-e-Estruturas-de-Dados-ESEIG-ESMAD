@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Programaque regista a pluviosidade durante um ano
+
+            String[] mes = new string[12] { "Jan", "Feb", "Mar", "Abr", "Mai", "Jun", "Jul", "Aug", "Set", "Out", "Nov", "Dez" };
+            int[] pluviosidade = new int[12];
+            int temp;
+            String tempPluviosidade;
+
+
+            // Ler a pluviosidade de cada mês do ano
+            for (int i = 0; i <= 11; i++)
+            {
+                Console.Write("Pluviosidade do mês de " + mes[i] + ": ");
+                pluviosidade[i] = Convert.ToInt16(Console.ReadLine());
+            }
+
+            // Ordenar por ordem crescente
+            for (int i = 0; i < 11; i++)
+            {
+                for (int j = i + 1; j < 12; j++)
+                {
+                    if (pluviosidade[i] < pluviosidade[j])
+                    {
+                        // Troca os valores
+                        temp = pluviosidade[i];
+                        pluviosidade[i] = pluviosidade[j];
+                        pluviosidade[j] = temp;
+
+                        // Troca os meses
+                        tempPluviosidade = mes[i];
+                        mes[i] = mes[j];
+                        mes[j] = mes[i];
+                    }
+                }
+            }
+
+            Console.Clear();
+            // Apresentação dos valores em ordem decrescente
+
+            Console.WriteLine("######################");
+            Console.WriteLine("# Mês\tPluviosidade #");
+            for (int i = 0; i <= 11; i++)
+            {
+                Console.Write(mes[i] + "\t");
+                Console.WriteLine(pluviosidade[i]);
+            }
+
+            Console.ReadLine();
+        }
+    }
+}

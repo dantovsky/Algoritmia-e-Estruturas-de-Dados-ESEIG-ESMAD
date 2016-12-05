@@ -1,0 +1,43 @@
+using System;
+
+namespace ExerciciosCSharp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 03 - Questão 01 | Saber de um número é defetivoi/deficiente
+            char opcao = ' ';
+            Console.Write("### Programa que verifica se um dado número é um número defetivo (deficiente) ###\n\n");
+            do
+            {
+                // DECLARAÇÃO DE VARIÁVEIS -> necessário estar dentro do "do ... while", senão acumula valores 
+                // nas variáveis quando se quer verificar novos números
+                int num = 0;
+                int soma = 0;
+                Console.Write("Introduza um número: ");
+                num = Convert.ToInt16(Console.ReadLine());
+                for (int i = 1; i <= num / 2; i++)
+                {
+                    if (num % i == 0)
+                    {
+                        soma = soma + i;
+                    }
+                }
+                // CONCLUSÂO
+                if (soma < num)
+                {
+                    Console.WriteLine("\nO número {0} é um nnúmero defetivo. Soma dos divisores = {1}.", num, soma);
+                }
+                else
+                {
+                    Console.WriteLine("\nO número {0} NÂO é um nnúmero defetivo. Soma dos divisores = {1}.", num, soma);
+                }
+
+                // PERGUNTA SE QUER VERIFICAR OUTRO NÚMERO
+                Console.Write("\nDeseja verificar outro número?");
+                opcao = Convert.ToChar(Console.ReadLine());
+            } while (opcao == 's' || opcao == 'S');
+        }
+    }
+}

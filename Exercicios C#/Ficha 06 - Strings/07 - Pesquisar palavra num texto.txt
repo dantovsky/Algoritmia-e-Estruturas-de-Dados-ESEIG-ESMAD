@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 07 - Dado um texto, determina a posição (no texto) e o número de ocorrências de determinada palavra.
+            string texto = "Através de uma unidade de GPS/GPRS instalada em cada veículo, "
+                + "\num aparelho de monitorização regista informação em tempo real "
+                + "\nsobre a localização de cada veículo (latitude a longitude), assim como "
+                + "\noutros dados complementares: velocidade instantânea, distancia percorrida "
+                + "\ndesde o último registo, combustível em depósito, etc.";
+            string termoPesquisa = "";
+            string indiceTermo = "";
+            int contador = 0;
+
+            Console.WriteLine(texto);
+            //string textoLower = texto.ToLower;
+            Console.Write("\nDado o texto acima, escolha um termo a pesquisar: ");
+            termoPesquisa = Console.ReadLine();
+
+            for (int i = 0; i <= texto.Length - termoPesquisa.Length; i++)
+            {
+                if (texto.Substring(i, termoPesquisa.Length) == termoPesquisa)
+                {
+                    contador++;
+                    indiceTermo = indiceTermo + Convert.ToInt16(i + 1) + ", ";
+                }
+            }
+
+            // Retirar última vírgula e espaço (subtrair os dois últimos caracteres)
+            if (contador >= 1)
+                indiceTermo = indiceTermo.Substring(0, indiceTermo.Length - 2);
+            else
+                indiceTermo = "Nenhum termo para contar o índice..."; // se não encontrar nenhum termo igual
+
+            // Resposta final
+            Console.WriteLine("Nº de ocorrências: {0}\nPosições no texto: {1}", contador, indiceTermo);
+        }
+    }
+}

@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // Tenta abrir um ficheiro de texto e mostrar uma certa linha escolhida de forma aleatória
+        static void Main(string[] args)
+        {
+            Console.Write("Digite o nome do arquivo para exibir seu conteúdo: ");
+            string arquivo = Console.ReadLine();
+            string ficheiro = @arquivo;                 // É preciso isto (???) 
+
+
+            // VERIFICA SE O ARQUIVO EXISTE
+            if (File.Exists(ficheiro))
+            {
+                // RETORNA O NUMERO DE LINHAS DE UM ARQUIVO
+                var lineCount = File.ReadAllLines(ficheiro).Length;         // From net
+                //var lineCount = File.ReadLines(arquivo).Count();          // From net - pode usar também o método desta linha
+
+                // GERA UM NUMERO RAND ENTRE 1 .. Nº LINHAS
+                Random rand = new Random();
+                int linhaAleatoria = rand.Next(1, lineCount + 1);
+
+                // CRIA A PONTE DE LEITURA COM O ARQUIVO
+                StreamReader sr;
+                sr = File.OpenText(ficheiro);
+
+                // LE LINHAS DO ARQUIVO ATE CHEGAR NA LINHA N (ALEATORIA)
+                string linha = File.ReadLines(ficheiro).Skip(linhaAleatoria - 1).Take(1).First();         // From net - saber mais sobre esta linha
+
+                // APRESENTA A LINHA SORTEADA
+                Console.WriteLine(linha);
+                sr.Close();
+
+                // MENSAGEM TESTE
+                Console.WriteLine("\nO número de linhas do arquivo é {0} e foi lida a linha de número {1}.\n", lineCount, linhaAleatoria);
+            }
+            else
+            {
+                Console.WriteLine("O arquivo {0} não existe.", ficheiro);
+
+            }
+
+            // REFERENCIAS
+            // http://stackoverflow.com/questions/119559/determine-the-number-of-lines-within-a-text-file   // nº linhas do arquivo
+            // http://stackoverflow.com/questions/1262965/how-do-i-read-a-specified-line-in-a-text-file     // ler determinada linha
+
+        }
+    }
+}

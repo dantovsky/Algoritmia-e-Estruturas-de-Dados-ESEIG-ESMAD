@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 09 | Exercicio 1 - Registar temperatura
+            // Exercícios sobre DateTime
+            // obter data
+            // obter hora
+            // gerar temperatura
+            // obter designacao do ficheiro
+            // guardar ficheiro
+            // <- Tudo dentro de um ciclo
+
+            Console.Clear();
+            Console.WriteLine("\nSIMULADOR DE REGISTO DE TEMPERATURA\nFICHA 09 | EXERCICIO 01\n");
+            Console.SetCursorPosition(10, 3);
+            Console.WriteLine("Data");
+            Console.SetCursorPosition(25, 3);
+            Console.WriteLine("Hora");
+            Console.SetCursorPosition(40, 3);
+            Console.WriteLine("Temperatura");
+            Console.SetCursorPosition(10, 4);
+            Console.WriteLine("-----------------------------------------");
+
+            Random rand = new Random();
+            int lin = 5;
+            int op = 1;
+            while (op == 1)
+            {
+                string hoje = DateTime.Today.ToString("yyyy-MM-dd");
+                Console.SetCursorPosition(10, lin);
+                Console.WriteLine(hoje);
+
+                string hora = DateTime.Now.ToString("HH:mm:ss");
+                Console.SetCursorPosition(25, lin);
+                Console.WriteLine(hora);
+
+                int temperatura = rand.Next(10, 26);
+                Console.SetCursorPosition(40, lin);
+                Console.WriteLine(temperatura.ToString());
+
+                // FICHEIRO
+                string diaDoAno = DateTime.Today.DayOfYear.ToString("###"); // cada cardinal significa um algarismo
+                string ficheiro = @"temp" + diaDoAno + ".txt";
+                StreamWriter sw;
+                if (File.Exists(ficheiro) == true)
+                {
+                    sw = File.AppendText(ficheiro);
+                }
+                else
+                {
+                    sw = File.CreateText(ficheiro);
+                }
+                string linha = hoje + ";" + hora + ";" + temperatura;
+                sw.WriteLine(linha);
+                sw.Close();
+
+                Thread.Sleep(3000);
+                lin++;
+                // Para evitar o erro da gama de valores da linha
+                if (lin == 300)
+                {
+                    Console.Clear();
+                    lin = 5;
+                }
+            }
+            //Console.ReadLine();
+        }
+    }
+}

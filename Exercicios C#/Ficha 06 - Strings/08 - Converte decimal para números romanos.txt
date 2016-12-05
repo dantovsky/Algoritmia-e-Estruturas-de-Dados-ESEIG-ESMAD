@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 08 - Converte um número decimal para numeração romana
+            // Até 3 dígitos
+            // http://www.climaat.angra.uac.pt/produtos/calculadoras/numeros_romanos.htm
+            // https://pt.wikipedia.org/wiki/Numera%C3%A7%C3%A3o_romana
+            String numero = " ";
+            String[] unidades = new String[10] { "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" };
+            String[] dezenas = new String[10] { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC" };
+            String[] centenas = new String[10] { "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM" };
+            String[] guarda_numeros = new String[3]; // irá guardar o resultado finao em ordem inversa
+            int comp = 0; // irá receber o comprimento do número digitado
+
+            // irá repetir até que o utilizador 
+            // entre apenas com um número até 3 dígitos
+            do
+            {
+                // Recebe o número em decimal na forma de String
+                Console.WriteLine("Digite um número decimal: ");
+                numero = Console.ReadLine();
+
+                // Comprimento do número
+                comp = numero.Length;
+
+                // Converter o número que está em String para um Inteiro
+                int numero_inteiro = Convert.ToInt16(numero);
+
+                // Processo de conversão
+                int temp = 0;   // irá receber a unidade do número
+                int aux = 0;    // irá multiplicar o número que está em temp por 1, 10 ou 100
+                for (int i = 0; i < comp; i++)
+                {
+                    temp = numero_inteiro % 10; // recebe a unidade do número
+                    numero_inteiro = numero_inteiro / 10;   // reduz o número retirando a unidade
+                    aux = temp * Convert.ToInt16(Math.Pow(10, i)); // multiplica o número que está em temp por 1, 10 ou 100
+                    // a potência devolve sempre um número em double
+
+                    if (aux < 10)
+                    {
+                        guarda_numeros[i] = unidades[aux];  // vai buscar o equivalente em romanos
+                    }
+                    else if (aux < 100)
+                    {
+                        aux = aux / 10;     // volta a deixar somente o número mais significativo
+                        guarda_numeros[i] = dezenas[aux];   // vai buscar o equivalente em romanos
+                    }
+                    else if (aux < 1000)
+                    {
+                        aux = aux / 100;    // volta a deixar somente o número mais significativo
+                        guarda_numeros[i] = centenas[aux];  // vai buscar o equivalente em romanos
+                    }
+                }
+            } while (comp > 3); // explicação no início do ciclo "do .. while"
+
+            // Apresentar o resultado final
+            // Correr o array "guarda_numeros" de trás para frente, 
+            // uma vez que os números foram salvos em ordem contrária
+            Console.Write("Conversão do número {0} para Romanos: ", numero);
+            for (int i = comp - 1; i >= 0; i--)
+            {
+                Console.Write(guarda_numeros[i]);
+            }
+            Console.ReadLine();
+        }
+    }
+}

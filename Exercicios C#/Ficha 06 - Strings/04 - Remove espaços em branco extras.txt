@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 04 - Substituir as sequências de dois ou mais espaços em branco
+            // Pretende-se que se remova quando houver 2 ou mais espaços
+            string frase = " ";
+            //string nova_frase = " ";
+            Console.WriteLine("Insira uma frase com vários espaços entre as palavras: ");
+            frase = Console.ReadLine();
+
+            int comp = frase.Length;
+
+            // Retirando os espaços em branco extras da frase
+            for (int i = 0; i < comp - 1; i++)
+            {
+                if (frase[i] == ' ')
+                    while (frase[i + 1] == ' ')
+                    {
+                        frase = frase.Remove(i, 1);
+                        comp--; // compensar o tamanho do comprimento
+                        // a cada vez que remove um espaço em branco, 
+                        // deminuímos também uma unidade do comprimento
+                    }
+            }
+            Console.WriteLine(frase);
+            Console.ReadLine();
+        }
+    }
+}

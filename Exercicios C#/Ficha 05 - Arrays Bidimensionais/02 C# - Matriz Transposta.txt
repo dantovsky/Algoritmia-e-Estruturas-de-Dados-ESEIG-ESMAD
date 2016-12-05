@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 05 - Questão 02 | Receber dados num array e fazer a sua transposta
+	    int[,] matriz = new int[3,3]; // declaração de uma matriz bidimensional
+
+            Console.WriteLine("Introduza os valores da matriz (3x3): ");
+            for (int i = 0; i <= 2; i++) // percorrer linhas
+            {
+                for (int j = 0; j <= 2; j++) // percorrer colunas
+                {
+                    Console.SetCursorPosition(j * 7, 5 + i * 2); // variar a posição da linha e coluna
+                    matriz[i, j] = Convert.ToInt16(Console.ReadLine());
+                    // Console.Clear();
+                }
+                // OBS: Setposition precende sempre um readline ou writeline
+            }
+            Console.WriteLine("\n\nMATRZ  TRANSPOSTA ");
+            for (int i = 0; i <= 2; i++) // percorrer linhas
+            {
+	            for (int j = 0; j <= 2; j++) // percorrer colunas
+                {
+                    Console.SetCursorPosition(j * 7, 15 + i * 2); // variar a posição da linha e coluna
+                    Console.WriteLine(matriz[j, i]);
+                }
+            }
+            Console.ReadKey();
+        }
+    }
+}

@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApplication1
+{
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 08 | Cifra de Cesar com codigo ASCII
+            string texto = " ";
+            int chave = 0;
+            
+            Console.Write("Insira um texto: ");
+            texto = Console.ReadLine();
+
+            Console.Write("Insira um valor para a chave: ");
+            chave = Convert.ToInt16(Console.ReadLine());
+
+            // Obter comprimento do texto inserido
+            int comp = texto.Length;
+
+            for (int i = 0; i < comp; i++)
+            {
+                int code = Convert.ToInt16(texto[i]);
+
+
+                Console.WriteLine("Código ASII convertido + chave: " + (code + chave));
+                Console.WriteLine("Novo caracter: " + Convert.ToChar(code + chave));
+
+            }   // fim do for
+            Console.ReadLine();
+        }
+    }
+}

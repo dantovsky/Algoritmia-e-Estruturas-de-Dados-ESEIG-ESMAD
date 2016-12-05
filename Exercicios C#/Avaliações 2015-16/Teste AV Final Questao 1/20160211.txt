@@ -1,0 +1,8 @@
+3;Papagaio
+4;Piriquito
+3;Papagaio
+2;Gato
+5;Cobra
+4;Piriquito
+3;Papagaio
+7;Leao

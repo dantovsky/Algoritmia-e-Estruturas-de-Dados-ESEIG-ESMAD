@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ficha1Q09
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // C# 01 - Jogo Advinha o número
+            Console.Title = "Jogo Adivinha o Número";
+            string novo_jogo;
+
+            do  // Início do jogo
+            {
+                int palpite = 0;
+                int tentativas = 0;
+                //char novo_jogo = ' ';   // definir um espaço vai permitir já entrar diretamente
+                // no jogo sem perguntar se quer jogar de novo (na primeira vez)
+
+                Console.Clear();
+                Console.WriteLine("\t ~~~ Jogo Adivinha o Número ~~~\n");
+
+                // Criar um objeto "Rnd" do tipo random
+                // Gera um número aleatório
+                Random rand = new Random();
+                int numero = rand.Next(1, 100);
+
+                // Inicia perguntas de palpites
+                // Sai do loop quando acertar o número ou quando acertar o número
+                while ((palpite != numero) && (tentativas < 10))
+                {
+                    Console.Write("Indique o seu palpite: ");
+                    palpite = Convert.ToInt16(Console.ReadLine());
+
+                    tentativas++; // incrementa número de jogadas (tentativas)
+
+                    if (palpite > numero)
+                    {
+                        Console.WriteLine("Menor...!");
+                    }
+                    else if (palpite < numero)
+                    {
+                        Console.WriteLine("Maior...!");
+                    }
+                }
+
+                // Quando sai do while: ou acertou ou acabaram as 10 tentativas
+
+                // Configurando propriedades para a escrita seguinte na consola
+                Console.SetCursorPosition(10, 25);
+                Console.ForegroundColor = ConsoleColor.Red;
+
+                // Verifica se acertou ou se perdeu o jogo
+                if (palpite == numero)
+                {
+                    Console.WriteLine("ACERTOU!!! Foram {0} tentativas. ", tentativas);
+                }
+                else
+                    Console.WriteLine("~ GAME OVER ~");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                //Pergunta se faz novo jogo: Sim ou Não
+                // Console.SetCursorPosition(10, 15);
+                Console.WriteLine("Novo jogo? (S/N)");
+                novo_jogo = Console.ReadLine(); // não precisa de Convert porque já é um string
+
+            } while (novo_jogo.ToUpper() != "N"); // verifica se a variável jogo é diferente de "NÃO"
+            Console.Write("Obrigado por ter jogado!\n");
+        }
+    }
+}

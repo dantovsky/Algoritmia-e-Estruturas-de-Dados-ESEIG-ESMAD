@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ficha1Q09
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+           // Matriz  ordem 3, com valores indicados pelo utilizador
+
+            // matriz bidimencional
+            int[,] matriz = new int[3, 3];
+
+            Console.WriteLine("iNSIRA DADOS NA MATRIZ. ");
+
+            for (int i = 0; i < 3; i++) // percorrer linhas
+			{
+			     for (int j = 0; j < 3; j++) // percorrer colunas
+			    {
+                    //Console.WriteLine("Posição linha {0}, coluna {1}: ", i,j);
+                    Console.SetCursorPosition(j * 10, 2 + i * 2);
+                    matriz[i, j] = Convert.ToInt16(Console.ReadLine());
+			    }
+			}
+            
+            // Transposta da matriz (trocar linhas por colunas
+            Console.WriteLine("\n\nToma aqui a transposta da matriz: ");
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Console.SetCursorPosition(j * 10, 11 + i * 2);
+                    Console.WriteLine(matriz[j, i]);
+                }
+            }
+        }
+    }
+}

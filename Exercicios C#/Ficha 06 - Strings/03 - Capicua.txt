@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Strings
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 06
+            // 03. Escreva um algoritmo que leia um texto e valide se é capicua ou não.
+            String texto = " ";
+            int comp = 0;
+            bool flag = true;
+
+            Console.Write("Escreva uma frase: ");
+            texto = Console.ReadLine();
+
+            // Comprimento do texto
+            comp = texto.Length;
+
+            int j = comp - 1;
+            for (int i = 0; i <= comp / 2; i++)
+            {
+                if (texto[i] != texto[j])
+                    flag = false;
+                else
+                    j--;
+            }
+
+            if (flag == true)
+                Console.WriteLine("É uma capicua.");
+            else
+                Console.WriteLine("Não é uma capicua.");
+
+            Console.WriteLine("\n");
+            Console.ReadLine();
+        }
+    }
+}

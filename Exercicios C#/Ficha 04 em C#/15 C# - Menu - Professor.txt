@@ -1,0 +1,85 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MENU
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] fila = new int[10] {0,0,0,0,0,0,0,0,0,0};
+            int livres = 0, ocupados = 0;
+            // EXEMPLO de um programa que se inicia com um MENU 
+            char op = ' ';
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("MENU");
+                Console.WriteLine("1 - Tirar Ticket");
+                Console.WriteLine("2 - Atendimento");
+                Console.WriteLine("3 - Estado da Fila");
+                Console.WriteLine("0 - Terminar");
+                Console.Write("    Opcao:");
+                op = Convert.ToChar(Console.ReadLine());
+                switch (op)
+                {
+                    case '1': int i = 0;     // Procurar a primeira posição vazia 
+                              while ((fila[i] != 0) && (i<9))
+                              {
+                                  i++;
+                              }
+                        
+                              if ((i < 10) && (fila[i]==0))  // se indice é <10 => tem lugares vazios
+                              {
+                                  fila[i] = 1;
+                                  Console.SetCursorPosition(15, 15);
+                                  Console.WriteLine("Ticket Nº {0}", i + 1);
+                                  Console.ReadLine();
+                              }
+                              else                          // senão FILA está cheia
+                              {
+                                  Console.SetCursorPosition(15, 15);
+                                  Console.WriteLine("Fila Está cheia!!");
+                                  Console.ReadLine();
+                              }
+                             break;
+                    case '2': int j = 1;
+                              while ((fila[j] ==1) && (j<9))
+                              {
+                                  fila[j - 1] = fila[j]; 
+                                  j++;
+                              }
+                                Console.SetCursorPosition(15, 15);
+                                Console.WriteLine("Atendido um Ticket"  );
+                               fila[j-1] = 0;
+                               Console.ReadLine();
+                              
+                        break;
+                    case '3': livres = 0; 
+                              ocupados = 0; 
+                             for (int k=0; k<10;k++)
+                              {
+                                  if (fila[k] == 0)
+                                      livres++;
+                                  else
+                                      ocupados++;
+                              }
+                          Console.SetCursorPosition(15, 15);
+                          Console.WriteLine("Lugares Livres: {0}", livres);
+                          Console.SetCursorPosition(15, 17);
+                          Console.WriteLine("Lugares Ocupados: {0}", ocupados);
+                          Console.ReadLine();
+                        break;
+                    default: Console.WriteLine("Opção Inválida!");
+                        break;
+                }
+            }
+            while (op != '0');
+
+
+        }
+    }
+}

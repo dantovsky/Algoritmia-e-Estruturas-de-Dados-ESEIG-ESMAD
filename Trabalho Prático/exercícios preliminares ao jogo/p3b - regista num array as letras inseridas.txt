@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // Função que lê caracteres letra e os coloca num array
+	// Passa as letras para uppercase;
+	// Verifica se já existe na lista
+	// Termina quando digitar um ponto(.) ou quando atingir as 26 letras do alfabeto
+ 
+        static void Main(string[] args)
+        {
+            char letra = ' ';
+            char[] letras = new char[26];
+            int indice_letras = 0;
+
+            Console.WriteLine("Insira letras, e insira um \"ponto\" para terminar. ");
+            // "DO ... WHILE" IRA TERMINAR QUANDO DIGITAR UM PONTO OU QUANDO O ARRAY ATINGIR 26 POSICOES
+            do
+            {
+                Console.Write("Letra: ");
+                letra = Convert.ToChar(Console.ReadLine().ToUpper());
+
+                // VERIFICA SE JA EXISTE NA LISTA
+                bool jaExiste = false;
+                for (int i = 0; i < indice_letras; i++)
+                {
+                    if (letra == letras[i])
+                    {
+                        jaExiste = true;
+                    }
+                }
+                // CASO SEJA UMA LETRA E NAO EXISTA JA NA LISTA
+                // ENTAO ADICIONA A LETRA NA LISTA 
+                if (char.IsLetter(letra) && jaExiste == false)
+                {
+                    letras[indice_letras] = letra;
+                    indice_letras++;
+                }                
+            } while (letra != '.' && indice_letras < 26);
+
+
+            Console.Write("Letras [ ");
+            for (int i = 0; i < indice_letras; i++)
+            {
+                //if (Char.IsLetter(letras[i]))
+                //{
+                    Console.Write(letras[i] + " ");
+                //}
+            }
+            Console.WriteLine("]");
+            // Console.ReadKey();
+        }
+    }
+}

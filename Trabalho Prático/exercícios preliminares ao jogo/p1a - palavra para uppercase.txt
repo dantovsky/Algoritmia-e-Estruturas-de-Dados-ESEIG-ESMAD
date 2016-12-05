@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // Função int toupper(int c) que converte uma palavra para uppercase
+	// No C# já usamos o ReadLine() que nos lê uma linha inteira, sendo este exercício igual para palavra ou frase
+        static void Main(string[] args)
+        {
+            Console.Write("Insira uma palavra: ");
+            string palavra = Console.ReadLine().ToUpper();
+            Console.Write("Palavra em UPPERCASE: " + palavra);
+            // Console.ReadKey();
+        }
+    }
+}

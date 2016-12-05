@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 03 C# - Temperatura C para F
+
+            double c, f;
+            Console.WriteLine("Temperatura em Celsius: ");
+            c = Convert.ToDouble(Console.ReadLine());
+            f = 9.0/5 * c + 32; // precisa estar 9.5 ou 5.0 na divisão para que o resultado seja um double
+            Console.WriteLine("Temperatura Celsius convertida para Farenheit: " + f);
+        }
+    }
+}

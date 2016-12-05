@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ficha01Q09
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Peso Ideal
+            sbyte k;
+            Console.Clear();
+
+            Console.Write("Gênero (M/F): ");
+            char genero = Convert.ToChar(Console.ReadLine());
+            Console.Write("Altura em cm: ");
+            float altura = float.Parse(Console.ReadLine());  // byte equivale para um inteiro
+
+            if (genero == 'M' || genero == 'm')
+            {
+                k = 4;
+            }
+            else
+            {
+                k = 2;
+            }
+            float peso_ideal = (altura - 100) - (altura - 150) / k;
+            Console.WriteLine("O peso ideal é {0}.", peso_ideal);
+            Console.Read();
+        }
+    }
+}

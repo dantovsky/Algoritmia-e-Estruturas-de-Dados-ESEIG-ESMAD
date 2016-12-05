@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // Tenta abrir um ficheiro de texto e mostrar o seu conteúdo
+        static void Main(string[] args)
+        {
+            Console.Write("Digite o nome do arquivo para exibir seu conteúdo: ");
+            string arquivo = Console.ReadLine();
+            string ficheiro = @arquivo;                 // É preciso isto (???) 
+
+            StreamReader sr;
+            if (File.Exists(ficheiro))
+            {
+                sr = File.OpenText(ficheiro);
+                string linha = "";
+                while ((linha = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(linha);
+                }
+                sr.Close();
+            }
+            else
+            {
+                Console.Write("O arquivo {0} não existe.", arquivo);
+            }
+        }
+    }
+}

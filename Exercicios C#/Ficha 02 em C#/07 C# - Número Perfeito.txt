@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 07 C# - Número Perfeito
+            int num = 0, soma = 0;
+            Console.WriteLine("Entre com um núemro para verificar se é perfeito.");
+            num = Convert.ToInt16(Console.ReadLine());
+
+            for (int i = 1; i <= num/2; i++)
+            {
+                if (num % i == 0)
+                {
+                    soma = soma + i;
+                }
+            }
+            if (soma == num)
+            {
+                Console.WriteLine("{0} é um número perfeitíssimo! =D \nSoma dos divisores positivos = {1}", num, soma);
+            }
+            else
+                Console.WriteLine("Oh... =/ ...{0} não é número perfeito. \nSoma dos divisores positivos = {1}", num, soma);
+            Console.WriteLine("\n");
+        }
+    }
+}

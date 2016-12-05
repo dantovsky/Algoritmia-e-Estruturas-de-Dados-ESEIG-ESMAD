@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 05 - Primeiro e último nome
+            // O programa recebe um nome completo e devolto apenas o primeiro e último nomes
+            String nome = " ";
+            String prenome = " ";
+            String sobrenome = " ";
+
+            Console.WriteLine("Digite o nome completo: ");
+            nome = Console.ReadLine();
+
+            // Comprimento do nome completo
+            int comp = nome.Length;
+
+            // Captura o primeiro nome
+            prenome = nome.Substring(0, nome.IndexOf(' '));
+
+            // Captura o último nome
+            int posicao_ultimo_espaco = nome.LastIndexOf(' ');
+            sobrenome = nome.Substring(posicao_ultimo_espaco, comp - posicao_ultimo_espaco);
+
+            // Apenas para teste, apresento o nome inicialmente recebido
+            Console.WriteLine("\n\nO nome completo era: \n{0} ", nome);
+
+            // Apresentação do nome simplificado         
+            Console.WriteLine(prenome + sobrenome);
+            Console.ReadLine();
+
+        }
+    }
+}

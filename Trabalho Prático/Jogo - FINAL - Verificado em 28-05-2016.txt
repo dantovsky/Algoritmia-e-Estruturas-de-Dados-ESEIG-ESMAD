@@ -1,0 +1,801 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+
+/** Jogo da Forca | By Dante Marinho
+IPP - ESEIG | Tecnologias e Sistemas de Informação para a Web
+Trabalho prático da cadeira de Algoritmia e Estruturas de Dados
+
+    Penso que este é o meu jogo que está mais correto, verifiquei no dia 28/05/2016 e o ranking está a funcionar
+    bem, pois mesmo obtendo pontuação negativa o valor do score nunca pode ser negativo. Assim como também o jogo
+    roda-se bem sem sair do jogo espotaneamente por algum erro, como acontece com outras versões.
+
+    Para o funcionamento correto é preciso ter junto ao executával na pasta raís:
+    palavras.txt    =>  (Estrutura de uma linha: [tema;palavra;pontos] Exemplo: Casa;sala;1) 
+    pontuacoes.txt  =>  (Estrutura: de uma linha: [ID;nome;numero de jogadas;pontos atuais;score final] Exmplo. 0001;mario;5;10;200)
+    pasta "desenho" o qual contem 8 arquivos, do "desenho01.txt" ao "desenho08.txt"
+        onde cada arquivo vai construindo o boneco e o último desenho é o seguinte:
+    _________
+         |
+         O
+        /|\
+        / \
+
+*/
+
+namespace Jogo
+{
+    public class Global
+    {
+        // Variáveis das Configurações
+        public static int nivel = 1; // nível básico inicialmente
+        public static string tema = ""; // tema 1 inicialmente (faz o tema geral)
+        public static int numeroMaximoJogadas = 8; // 8 inicialmente
+
+        // Início do jogo
+        public static string nome = "";
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            /*  JOGO DA FORCA
+            Trabalho Prático AED (Algoritmia e Estruturas de Dados)
+            Alunos: Dante Marinho e Cláudia Fernandes   */
+
+            char opcao = ' ';
+            bool erro = true;
+            /// Este while irá fazer repetir o menu corretamente 
+            /// até que seja intorduzida uma opção válida
+            while (erro == true)
+            {
+                try
+                {
+                    do
+                    {
+                        Console.Clear();
+                        Console.WriteLine("************************************");
+                        Console.WriteLine("*         Opções de Menu           *");
+                        Console.WriteLine("************************************\n");
+                        Console.WriteLine("1.  Novo Jogo");
+                        Console.WriteLine("2.  Configuraçõoes");
+                        Console.WriteLine("\t- Temas");
+                        Console.WriteLine("\t- Nível de dificuldade");
+                        Console.WriteLine("\t- Número de tentativas");
+                        Console.WriteLine("3.  Rankings");
+                        Console.WriteLine("4.  Upload de palavras");
+                        Console.WriteLine("\n0.  SAIR");
+                        opcao = Convert.ToChar(Console.ReadLine());
+
+                        switch (opcao)
+                        {
+                            case '1':
+                                novoJogo();
+                                break;
+                            case '2':
+                                configuracoes();
+                                break;
+                            case '3':
+                                ranking();
+                                break;
+                            case '4':
+                                uploads();
+                                break;
+                            default:
+                                break;
+                        }
+                    } while (opcao != '0');
+                    erro = false;
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    erro = true;
+                }
+            }
+        }
+        //************************************************************
+        //                      FUNCOES E METODOS
+        //************************************************************
+
+        //------------------------------//------------------------------
+        //                          NOVO JOGO
+        //------------------------------//------------------------------
+        static void novoJogo()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(17, 7);
+            Console.Write("Nome do jogador: ");
+            Global.nome = Console.ReadLine();
+            string jogarNovamente = "";
+
+            do
+            {
+                int posicaoLeftPalavraSecreta = 17;
+                int posicaoRightPalavraSecreta = 8;
+                Console.Clear();
+                Console.SetCursorPosition(17, 7);
+                Console.Write("Nome do jogador: " + Global.nome);
+                Console.Clear();
+                Console.SetCursorPosition(50, 1);
+                Console.Write("Player: " + Global.nome);
+                Console.SetCursorPosition(17, 7);
+                Console.Write("Palavra secreta: ");
+
+                // SORTEIA UMA PALAVRA E TEMA (UMA LINHA DO TIPO tema;palavra)
+                string palavraETema = sorteiaPalavra();
+
+                // SEPARA TEMA E PALAVRA
+                string[] campos = new string[3];
+                campos = palavraETema.Split(';');
+                string palavra = campos[1].ToUpper();
+                Global.tema = campos[0];
+                Global.nivel = Convert.ToInt16(campos[2]);
+
+
+                // APRESENTA O TEMA NA TELA
+                Console.SetCursorPosition(50, 0);
+                Console.WriteLine("Tema da palavra: {0} ", Global.tema);
+
+                int tamanhoPalavra = palavra.Length;
+
+                // FAZ ARRAY DE ***** COM TAMANHO DA PALAVRA 
+                char[] palavraSecreta = new char[tamanhoPalavra];
+                for (int i = 0; i < palavraSecreta.Length; i++)
+                {
+                    palavraSecreta[i] = '*';
+                }
+
+                // APRESENTA *****
+                Console.SetCursorPosition(posicaoLeftPalavraSecreta, posicaoRightPalavraSecreta);
+                Console.WriteLine(palavraSecreta);
+
+                // PREPARACAO PARA O JOGO
+                char letra = ' ';
+                char[] letrasDigitadas = new char[26] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+                int erros = 0;
+
+                do
+                {
+                    do
+                    {
+                        Console.SetCursorPosition(17, 10);
+                        Console.Write("Escolha uma letra: ");
+                        letra = Convert.ToChar(Console.ReadLine().ToUpper());
+                    } while (!(Char.IsLetter(letra)));
+
+                    // REGISTAR A LETRA
+                    registaLetra(letra, letrasDigitadas);
+
+                    // VERIFICAR SE A LETRA EXISTE NA PALAVRA
+                    // SE SIM -> EXIBE A LETRA NAS SUAS POSICOES
+                    // SE NAO -> CONTA UM ERRO E EXIBE NOVO DESENHO
+                    bool existeLetra = false;
+                    for (int i = 0; i < tamanhoPalavra; i++)
+                    {
+                        if (letra == palavra[i])
+                        {
+                            palavraSecreta[i] = letra;
+                            existeLetra = true;
+                        }
+                    }
+
+                    // CONTA MAIS UM ERRO SE A LETRA NAO EXISTE
+                    if (existeLetra == false)
+                    {
+                        erros++;
+                        // FAZ DESENHOS
+                        fazDesenho(erros);
+
+                        // APRESENTA QUANTIDADE DE ERROS NA TELA
+                        Console.SetCursorPosition(50, 2);
+                        Console.WriteLine("Nº de erros: {0} ", erros);
+                    }
+
+                    // APRESENTA ***** sobrepondo o anterior
+                    Console.SetCursorPosition(posicaoLeftPalavraSecreta, posicaoRightPalavraSecreta);
+                    Console.Write(palavraSecreta);
+
+                    // APRESENTA LISTA DAS LETRAS DIGITADAS
+                    Console.SetCursorPosition(17, 12);
+                    Console.Write("Letras digitadas: [ ");
+                    for (int i = 0; i < letrasDigitadas.Length; i++)
+                    {
+                        if (letrasDigitadas[i] != ' ')
+                        {
+                            Console.Write(letrasDigitadas[i] + " ");
+                        }
+                    }
+                    Console.Write("]");
+
+                    // VERIFICA SE A PALAVRA JA FOI TODA DESVENDADA, E ENTAO SAI DO WHILE
+                    if (palavra.Length == contaLetrasDesvendadas(palavraSecreta))
+                    {
+                        Console.Write("\n\nAcertou! A palavra secreta era mesmo " + palavra);
+                        pontuacao(Global.nome, Global.nivel, (1 * Global.nivel));
+                        break;
+                    }
+                } while (erros < Global.numeroMaximoJogadas); // numero jogadas e tempo limite
+
+                if (palavra.Length != contaLetrasDesvendadas(palavraSecreta)) // se o lenght é diferente é porque errou
+                {
+                    Console.Write("\n\nGAME OVER!\n\nA palavra secreta era {0}.", palavra);
+                    pontuacao(Global.nome, Global.nivel, -1);
+                }
+                Console.WriteLine("\n\nJogar novamente (S/N)?");
+                jogarNovamente = Console.ReadLine();
+            } while (jogarNovamente == "s" || jogarNovamente == "S");
+        }
+
+        //----------------------------------------------------------
+        //                      FUNCAO PONTUAÇÃO
+        //----------------------------------------------------------
+        static void pontuacao(string nome, int nivel, int pontosJogada)
+        {
+            string ficheiroPontuacao = @"pontuacoes.txt";
+            string ficheiroTemp = @"pontuacoes_temp.txt";
+            string linha = " ";
+            if (File.Exists(ficheiroPontuacao) == true)
+            {
+                if (existeJogador(nome, ficheiroPontuacao) == true)
+                {
+                    StreamReader sr = File.OpenText(ficheiroPontuacao);
+                    StreamWriter swTemp = File.CreateText(ficheiroTemp);
+                    while ((linha = sr.ReadLine()) != null)
+                    {
+                        string[] partes = new string[5];
+                        partes = linha.Split(';');
+                        if (partes[1] == nome)
+                        {
+                            // AJUSTE DA PONTUAÇÃO
+                            if ((Convert.ToInt16(partes[3]) + pontosJogada) < 0) // se pontos - pontosJogada < 0
+                                pontosJogada = 0;
+                            if (pontosJogada == 1)
+                                Console.WriteLine("\nPontuação nesta jogada: {0} ponto", pontosJogada);
+                            else
+                                Console.WriteLine("\nPontuação nesta jogada: {0} pontos", pontosJogada);
+                            linha = partes[0] + ";" +                                               // codigo
+                            partes[1] + ";" +                                                       // nome
+                            Convert.ToString(Convert.ToInt16(partes[2]) + 1) + ";" +                // nº jogadas
+                            Convert.ToString(Convert.ToInt16(partes[3]) + pontosJogada) + ";" +     // pontos
+                            Convert.ToString(Math.Round((Convert.ToDouble(partes[3]) + pontosJogada) / (Convert.ToDouble(Convert.ToInt16(partes[2]) + 1)), 2) * 100);    // score final (pontos / nº jogadas * 100)
+                            swTemp.WriteLine(linha);
+                        }
+                        else
+                        {
+                            swTemp.WriteLine(linha);
+                        }
+                    }
+                    swTemp.Close();
+                    sr.Close();
+                    File.Delete(ficheiroPontuacao);
+                    File.Move(ficheiroTemp, ficheiroPontuacao);
+                }
+                else // caso que o jogador ainda nao existe no registo, mas o ficheiro ja exista
+                {
+                    // AJUSTE DA PONTUAÇÃO
+                    if (pontosJogada < 0)
+                        pontosJogada = 0;
+                    int numeroRegistos = File.ReadAllLines(ficheiroPontuacao).Length;
+                    StreamWriter sw = File.AppendText(ficheiroPontuacao);
+                    if (pontosJogada == 1)
+                        Console.WriteLine("\nPontuação nesta jogada: {0} ponto", pontosJogada);
+                    else
+                        Console.WriteLine("\nPontuação nesta jogada: {0} pontos", pontosJogada);
+                    linha = Convert.ToString(numeroRegistos + 1).PadLeft(4, '0') + ";" +        // codigo
+                            nome + ";" +                                                        // nome
+                            "1" + ";" +                                                         // nº jogadas
+                            Convert.ToString(pontosJogada) + ";" +                              // pontos
+                            Convert.ToString(pontosJogada * 100);                               // score - inicial = pontos/1
+                    sw.WriteLine(linha);
+                    sw.Close();
+                }
+            }
+            else
+            {
+                // AJUSTE DA PONTUAÇÃO
+                if (pontosJogada < 0)
+                    pontosJogada = 0;
+                StreamWriter sw = File.CreateText(ficheiroPontuacao);
+                if (pontosJogada == 1)
+                    Console.WriteLine("\nPontuação nesta jogada: {0} ponto", pontosJogada);
+                else
+                    Console.WriteLine("\nPontuação nesta jogada: {0} pontos", pontosJogada);
+                linha = "1".PadLeft(4, '0') + ";" +                 // codigo
+                        nome + ";" +                                // nome
+                        "1" + ";" +                                 // nº jogadas
+                        Convert.ToString(pontosJogada) + ";" +      // pontos
+                        Convert.ToString(pontosJogada * 100);       // score - inicial = pontos/1
+                sw.WriteLine(linha);
+                sw.Close();
+            }
+        }
+
+        //-----------------------------------------------------------
+        //     SUB-FUNCAO (VERIFICA SE EXISTE REGISTO DO JOGADOR)
+        //-----------------------------------------------------------
+        static bool existeJogador(string nome, string ficheiroPontuacao)
+        {
+            StreamReader sr = File.OpenText(ficheiroPontuacao);
+            string linha = "";
+            bool existe = false;
+            while ((linha = sr.ReadLine()) != null)
+            {
+                string[] partes = new string[5];
+                partes = linha.Split(';');
+                if (partes[1] == nome)
+                {
+                    existe = true;
+                }
+            }
+            sr.Close();
+            return existe;
+        }
+
+        //------------------------------------------
+        //     FUNCAO CONTA LETRAS DESVENDADAS
+        //------------------------------------------
+        static int contaLetrasDesvendadas(char[] palavraSecreta)
+        {
+            // CONTA CARACTERES DESVENDADOS
+            int letrasDesvendadas = 0;
+            for (int i = 0; i < palavraSecreta.Length; i++)
+            {
+                if (palavraSecreta[i] != '*')
+                {
+                    letrasDesvendadas++;
+                }
+            }
+            return letrasDesvendadas;
+        }
+        //------------------------------
+        //     FUNCAO REGISTA LETRA
+        //------------------------------
+        static void registaLetra(char letra, char[] letrasDigitadas)
+        {
+            // Verifica se já existe na lista
+            // Termina quando atingir as 26 letras do alfabeto
+
+            // VERIFICA SE JA EXISTE NA LISTA
+            bool jaExiste = false;
+            for (int i = 0; i < letrasDigitadas.Length; i++)
+            {
+                if (letra == letrasDigitadas[i])
+                {
+                    jaExiste = true;
+                }
+            }
+
+            // CASO SEJA UMA LETRA E NAO EXISTA JA NA LISTA
+            // ENTAO ADICIONA A LETRA NA LISTA 
+            //if (char.IsLetter(letra) && jaExiste == false)
+            if (jaExiste == false)
+            {
+                for (int i = 0; i < 26; i++)
+                {
+                    if (letrasDigitadas[i] == ' ')
+                    {
+                        letrasDigitadas[i] = letra;
+                        break;
+                    }
+                }
+            }
+        }
+
+        //------------------------------
+        //      SORTEIA PALAVRA
+        //------------------------------
+        static string sorteiaPalavra()
+        {
+            string ficheiro = @"palavras.txt";
+            string linha = "";
+
+            // VERIFICA SE O ARQUIVO EXISTE
+            if (File.Exists(ficheiro))
+            {
+                escolherTema(ref ficheiro, ref linha);
+            }
+            else
+            {
+                // CRIA O ARQUIVO COM ALGUMAS PALAVRAS (PARA O CASO DE O FICHEIRO NAO EXISTIR)
+                StreamWriter sw;
+                sw = File.CreateText(ficheiro);
+                sw.WriteLine("Casa;sala;1"); sw.WriteLine("Casa;janela;1"); sw.WriteLine("Cozinha;leite;1"); sw.WriteLine("Natureza;sapo;1");
+                sw.WriteLine("Casa;escadaria;2"); sw.WriteLine("Casa;candeeiro;2"); sw.WriteLine("Casa;corredor;2"); sw.WriteLine("Cozinha;geladeira");
+                sw.WriteLine("Natureza;floricultura;3"); sw.WriteLine("Natureza;abacaxi;2"); sw.WriteLine("Casa;elevador;2"); sw.WriteLine("Natureza;jabuti;2");
+                sw.WriteLine("Geografia;brasil;1"); sw.WriteLine("Geografia;holanda;1"); sw.WriteLine("Geografia;portugal;1"); sw.WriteLine("Geografia;lisboa;1"); sw.WriteLine("Geografia;porto;1");
+                sw.WriteLine("Nomes;daniel;1"); sw.WriteLine("Nomes;daniela;1"); sw.WriteLine("Nomes;michelangelo;3"); sw.WriteLine("Nomes;leonardo;2");
+                sw.Close();
+
+                escolherTema(ref ficheiro, ref linha);
+            }
+            return linha;
+        }
+
+        //------------------------------//------------------------------
+        //     ESCOLHE O TEMA (SUB CHAMADA DA FUNCAO sorteiaPalavra)
+        //------------------------------//------------------------------
+        static string escolherTema(ref string ficheiro, ref string linha)
+        {
+            if (Global.tema == "Geral" || Global.tema == "")
+            {
+                sorteio(ref ficheiro, ref linha);
+            }
+            else
+            {
+                do
+                {
+                    // VAI REPETIR ATÉ QUE ENCONTRE O TEMA ESCOLHIDO
+                    sorteio(ref ficheiro, ref linha);
+                    // Ira repetir o sorteio ate que encontre uma palavra do tema e nivel escolhidos
+                } while (linha.Substring(0, linha.IndexOf(";")) != Global.tema || linha.Substring(linha.LastIndexOf(";") + 1, 1) != Convert.ToString(Global.nivel));
+            }
+            return linha;
+        }
+
+        //------------------------------//------------------------------
+        //          SORTEIO (SUB CHAMADA DA FUNCAO escolheTema)
+        //------------------------------//------------------------------
+        static string sorteio(ref string ficheiro, ref string linha)
+        {
+            // RETORNA O NUMERO DE LINHAS DE UM ARQUIVO
+            int lineCount = File.ReadAllLines(ficheiro).Length;
+
+            // GERA UM NUMERO RAND ENTRE 1 .. Nº LINHAS
+            Random rand = new Random();
+            int linhaAleatoria = rand.Next(1, lineCount + 1);
+
+            // CRIA A PONTE DE LEITURA COM O ARQUIVO
+            StreamReader sr;
+            sr = File.OpenText(ficheiro);
+
+            // LE LINHAS DO ARQUIVO ATE CHEGAR NA LINHA N (ALEATORIA)
+            linha = File.ReadLines(ficheiro).Skip(linhaAleatoria - 1).Take(1).First();
+            sr.Close();
+            return linha;
+        }
+
+        //------------------------------
+        //           DESENHO
+        //------------------------------
+        static void fazDesenho(int erros)
+        {
+            if (Global.numeroMaximoJogadas == 5)
+            {
+                // Para este jogo bastam as duas linhas abaixo, pois o desenho já sobrepõe o que foi desenhado anteriormente
+                //-------------------------------------------------------------------------------------------------------
+                short ajustaDesenho = 3;    // serve para ajustar o desenho, pois o padrão são 8 desenhos
+                fazDesenhoLeituraTexto(erros + ajustaDesenho);
+
+                // Em caso que fosse necessário ir concatennando desenhos, pode-se fazer destes dois tipos que se seguem
+                // Tipo 1 (com ciclo for):
+                //-------------------------------------------------------------------------------------------------------
+                /* for (int errosTemp = 1; errosTemp <= erros; errosTemp++)
+                 {
+                     fazDesenhoLeituraTexto(errosTemp + ajustaDesenho);
+                 }*/
+
+                // Tipo 2 (com switch):
+                //-------------------------------------------------------------------------------------------------------
+                /*switch (erros)
+                    {
+                        case 1:
+                            fazDesenhoLeituraTexto(erros + ajustaDesenho);
+                            break;
+                        case 2:
+                            fazDesenhoLeituraTexto(erros + ajustaDesenho);
+                            break;
+                        case 3:
+                            fazDesenhoLeituraTexto(erros + ajustaDesenho);
+                            break;
+                        case 4:
+                            fazDesenhoLeituraTexto(erros + ajustaDesenho);
+                            break;
+                        case 5:
+                            fazDesenhoLeituraTexto(erros + ajustaDesenho);
+                            break;
+                        default:
+                            break;
+                    }*/
+            }
+            else if (Global.numeroMaximoJogadas == 6)
+            {
+                short ajustaDesenho = 2;
+                fazDesenhoLeituraTexto(erros + ajustaDesenho);
+            }
+            else if (Global.numeroMaximoJogadas == 7)
+            {
+                short ajustaDesenho = 1;
+                fazDesenhoLeituraTexto(erros + ajustaDesenho);
+            }
+            else // caso para 8 tentativas (padrão)
+            {
+                // Pode fazer short ajustaDesenho = 0; e somar erros + ajustaDesenho (mas é desnecessário)
+                fazDesenhoLeituraTexto(erros);
+            }
+        }
+
+        //------------------------------
+        //      DESENHO (SUB-FUNCAO)
+        //------------------------------
+        static void fazDesenhoLeituraTexto(int numErrosInt)
+        {
+            string numErros = Convert.ToString(numErrosInt);
+            Console.SetCursorPosition(1, 1);
+            string linha = "";
+            if (File.Exists(@"desenho\\desenho0" + numErros + ".txt"))
+            {
+                StreamReader sr = File.OpenText(@"desenho\\desenho0" + numErros + ".txt");
+                while ((linha = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(linha);
+                }
+                sr.Close();
+            }
+        }
+
+        //------------------------------
+        //      CONFIGURACOES
+        //------------------------------
+        static void configuracoes()
+        {
+
+            try
+            {
+                char subOpcao = ' ';
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine("Menu » CONFIGURAÇÕES\n");
+                    Console.WriteLine("« a » Tema");
+                    Console.WriteLine("« b » Nível");
+                    Console.WriteLine("« c » Número de tentativas");
+                    Console.WriteLine("« 0 » VOLTAR");
+                    subOpcao = Convert.ToChar(Console.ReadLine());
+
+                    try
+                    {
+                        switch (subOpcao)
+                        {
+                            case 'a':
+                                Console.WriteLine("\n » » TEMAS\n\n     1 - Geral\n     2 - Geografia\n     3 - Natureza\n     4 - Cozinha\n     5 - Casa\n     6 - Nomes");
+                                int opTema = 0;
+                                opTema = Convert.ToInt16(Console.ReadLine());
+                                if (opTema > 0 && opTema < 7)
+                                {
+                                    if (opTema == 1)
+                                        Global.tema = "Geral";
+                                    if (opTema == 2)
+                                        Global.tema = "Geografia";
+                                    if (opTema == 3)
+                                        Global.tema = "Natureza";
+                                    if (opTema == 4)
+                                        Global.tema = "Cozinha";
+                                    if (opTema == 5)
+                                        Global.tema = "Casa";
+                                    if (opTema == 6)
+                                        Global.tema = "Nomes";
+                                    Console.WriteLine("Tema salvo");
+                                    Thread.Sleep(1000);
+                                }
+                                break;
+                            /*case 'b':
+                                Console.WriteLine("\n » » Tempo Limite\n\n     1 - 1 minuto\n     2 - 2 minutos\n     3 - 3 minutos");
+                                Global.tempo = Convert.ToInt16(Console.ReadLine());
+                                while (Global.tempo > 3 || Global.tempo < 1)
+                                {
+                                    Console.WriteLine("Digite uma opção válida");
+                                    Global.tempo = Convert.ToInt16(Console.ReadLine());
+                                }
+                                break;*/
+                            case 'b':
+                                Console.WriteLine("\n » » Nível\n\n     1 - NEWBIE\n     2 - AVERAGE\n     3 - EXPERT");
+                                Global.nivel = Convert.ToInt16(Console.ReadLine());
+                                while (Global.nivel < 1 || Global.nivel > 3)
+                                {
+                                    Console.WriteLine("Digite uma opção válida");
+                                    Global.nivel = Convert.ToInt16(Console.ReadLine());
+                                }
+                                break;
+                            case 'c':
+                                Console.WriteLine("\n » » Número de tentativas\n\n     5 - 5 jogadas\n     6 - 6 jogadas\n     7 - 7 jogadas\n     8 - 8 jogadas");
+                                int op = 0;
+                                do
+                                {
+                                    if (op != 0)
+                                    {
+                                        Console.SetCursorPosition(5, 16); // left top
+                                        Console.WriteLine("Opção inválida, escolha novo número: ");
+                                        Console.SetCursorPosition(42, 16);
+                                        op = Convert.ToInt16(Console.ReadLine());
+                                    }
+                                    else
+                                    {
+                                        Console.SetCursorPosition(5, 16);
+                                        op = Convert.ToInt16(Console.ReadLine());
+                                    }
+                                } while (op < 5 || op > 8);
+                                if (op > 4 && op < 9)
+                                {
+                                    if (op == 5)
+                                        Global.numeroMaximoJogadas = 5;
+                                    if (op == 6)
+                                        Global.numeroMaximoJogadas = 6;
+                                    if (op == 7)
+                                        Global.numeroMaximoJogadas = 7;
+                                    if (op == 8)
+                                        Global.numeroMaximoJogadas = 8;
+                                    Console.WriteLine("Número de ogadas salvo");
+                                    Thread.Sleep(1000);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                } while (subOpcao != '0');
+                //erro = false;
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //erro = true;
+            }
+        }
+
+        //------------------------------
+        //          RANKING
+        //------------------------------
+        static void ranking()
+        {
+            Console.Clear();
+            string ficheiroPontuacoes = @"pontuacoes.txt";
+            StreamReader sr;
+            if (File.Exists(ficheiroPontuacoes))
+            {
+                sr = File.OpenText(ficheiroPontuacoes);
+                int numRegistos = File.ReadAllLines(ficheiroPontuacoes).Length;
+                string[] nome = new string[numRegistos];
+                string[] score = new string[numRegistos];
+                string[] jogadas = new string[numRegistos];
+                string linha = "";
+                int indice = 0;
+                while ((linha = sr.ReadLine()) != null)
+                {
+                    string[] campos = new string[5];
+                    campos = linha.Split(';');
+                    nome[indice] = campos[1];
+                    score[indice] = campos[4];
+                    jogadas[indice] = campos[2];
+                    indice++;
+                }
+                sr.Close();
+                // ORDENANDO
+                string temp = "";
+                for (int i = 0; i < numRegistos - 1; i++)
+                {
+                    for (int j = i + 1; j < numRegistos; j++)
+                    {
+
+                        if (Convert.ToInt16(score[i]) < Convert.ToInt16(score[j]))
+                        {
+                            // TROCA VALORES
+                            temp = score[j];
+                            score[j] = score[i];
+                            score[i] = temp;
+
+                            // TROCA NOMES
+                            temp = nome[j];
+                            nome[j] = nome[i];
+                            nome[i] = temp;
+
+                            temp = jogadas[i];
+                            jogadas[i] = jogadas[j];
+                            jogadas[j] = temp;
+                        }
+                    }
+                }
+                // APRESENTANDO O RANKING
+                Console.WriteLine("\n   ********* R  A  N  K  I  N  G   G  E  R  A  L *******");
+                Console.Write("\n\n   NOME                QUANT. JOGADAS              SCORE");
+                Console.WriteLine("\n   -----------------------------------------------------");
+                int lin = 6;
+                for (int i = 0; i < numRegistos; i++)
+                {
+                    Console.SetCursorPosition(3, lin);
+                    Console.WriteLine(nome[i]);
+                    Console.SetCursorPosition(23, lin);
+                    Console.WriteLine(jogadas[i]);
+                    Console.SetCursorPosition(51, lin);
+                    Console.WriteLine(score[i]);
+                    lin++;
+                }
+            }
+            else
+            {
+                Console.WriteLine("O arquivo de ranking não existe.");
+            }
+            Console.ReadLine();
+        }
+
+        //------------------------------
+        //      UPLOADS DE QUESTÕES
+        //------------------------------
+        static void uploads()
+        {
+            char insereMais = ' ';
+            do
+            {
+                Console.Clear();
+                string linha = "";
+                string tema = "";
+                string palavra = "";
+                string nivel = "";
+                Console.WriteLine("Escolha o tema a inserir:\n\n     1 - Geral\n     2 - Geografia\n     3 - Natureza\n     4 - Cozinha\n     5 - Casa\n     6 - Nomes ");
+                int opTema = 0;
+                opTema = Convert.ToInt16(Console.ReadLine());
+                if (opTema > 0 && opTema < 7)
+                {
+                    if (opTema == 1)
+                        tema = "Geral";
+                    if (opTema == 2)
+                        tema = "Geografia";
+                    if (opTema == 3)
+                        tema = "Natureza";
+                    if (opTema == 4)
+                        tema = "Cozinha";
+                    if (opTema == 5)
+                        tema = "Casa";
+                    if (opTema == 6)
+                        tema = "Nomes";
+                }
+                Console.Write("Escolha a palavra: ");
+
+                do
+                {
+                    palavra = Console.ReadLine();
+                } while (string.IsNullOrEmpty(palavra));
+
+                Console.WriteLine("\nEscolha o nível de dificuldade da palavra {0}.\n\n     1 - NEWBIE\n     2 - AVERAGE\n     3 - EXPERT", palavra);
+                int nivelPalavra = 0;
+                do
+                {
+                    nivelPalavra = Convert.ToInt16(Console.ReadLine());
+                    if (nivelPalavra < 1 || nivelPalavra > 3)
+                    {
+                        Console.Write("Digite uma opção válida: ");
+                    }
+                    nivel = Convert.ToString(nivelPalavra);
+                } while (nivelPalavra < 1 || nivelPalavra > 3);
+
+                linha = tema + ";" + palavra + ";" + nivel;
+
+                string ficheiro = @"palavras.txt";
+                StreamWriter sw;
+                if (File.Exists(ficheiro))
+                {
+                    sw = File.AppendText(ficheiro);
+                    sw.WriteLine(linha);
+                }
+                else
+                {
+                    sw = File.CreateText(ficheiro);
+                    sw.WriteLine(linha);
+                }
+                sw.Close();
+
+                Console.Write("Digite S/N para inserir mais palavras: ");
+                insereMais = Convert.ToChar(Console.ReadLine());
+            } while (insereMais == 's' || insereMais == 'S');
+        }
+    }
+}

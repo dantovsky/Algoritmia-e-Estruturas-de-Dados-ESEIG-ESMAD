@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExerciciosC
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int [] num = new int[10];
+int i, procura, posicao;
+
+for (int i =  ; i <= 9 ; i++)
+{
+	Console.WriteLine("Insira num: ");
+	num[i] = int.Parse(Console.ReadLine())
+}
+
+Console.WriteLine("Número a procurar: ");
+Convert.ToInt(Console.ReadLine(procura));
+
+        }
+    }
+}

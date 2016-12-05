@@ -1,0 +1,8 @@
+﻿1;Cao
+2;Gato
+3;Papagaio
+4;Piriquito
+5;Cobra
+6;Rinoceronte
+7;Leao
+8;Tigre

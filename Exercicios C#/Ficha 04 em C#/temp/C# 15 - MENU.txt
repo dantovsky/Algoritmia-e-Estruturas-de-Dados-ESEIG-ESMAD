@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Menu
+
+            // Variáveis
+            int opcao;
+
+            Console.WriteLine("\tMENU\n " +
+                "1 - Tirar Ticket \n " +
+                "2 - Atendimento \n " +
+                "3 - Estado da fila de espera \n " +
+                "0 - Sair ");
+
+            opcao = Convert.ToInt16(Console.ReadLine());
+
+            do
+            {
+                switch (opcao)
+                {
+                    case 1 : Console.WriteLine("Op 1\n");
+                        break;
+                    case 2 :  Console.WriteLine("Op 2\n");
+                        break;
+                    case 3: Console.WriteLine("Op 3\n");
+                        break;
+                    
+                    default:
+                        break;
+                }
+            } while (opcao != 0);
+            // Freezar a tela
+            Console.ReadLine();
+        }
+    }
+}

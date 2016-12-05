@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ficha1Q09
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // C# 01 - Jogo Advinha o número
+            Console.Title = "Adivinha a M. do Número";
+            string novo_jogo;
+
+            // Loop do jogo enquanto seleciona que quer jogar novamente
+            do
+            {
+                int tentativas = 0;
+                int palpite = 0;
+                int numero;
+
+                Random num_rand = new Random();
+                numero = num_rand.Next(1, 50); // gera um número aleatório entre 1 e 50
+
+                // lance dos palpites e verificação de número e quantidade de tentativas
+                Console.BackgroundColor = ConsoleColor.DarkCyan; // volta para a cor inicial da minha tela
+                while (palpite != numero && tentativas < 5)
+                {
+                    tentativas++;   // incremento das tentativas em +1
+                    Console.Write("Escolha um número: ");
+                    palpite = Convert.ToInt16(Console.ReadLine());
+
+                    if (palpite != numero && tentativas == 5)
+                        Console.Write("\n"); // ou a instrução "continue;"
+                    else if (palpite < numero)
+                        Console.Write("O número é maior\n\n");
+                    else if (palpite > numero)
+                        Console.Write("O número é menor\n\n");
+                }
+
+                // conclusão do jogo
+                if (palpite == numero)
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine("Acertou no número! Era realmente o número " + numero);
+                }
+
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("GAME OVER\n\nO número era o " + numero);
+
+                }
+
+                Console.WriteLine("\nDeseja fazer nova jogada? (S/N)\n");
+                novo_jogo = Console.ReadLine();
+
+            } while (novo_jogo.ToUpper() != "N");
+
+            // Saudações finais
+            Console.Write("Obrigado por ter jogado!\n");
+
+
+        }
+    }
+}

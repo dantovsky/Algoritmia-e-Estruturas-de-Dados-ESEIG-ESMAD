@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 02 C# - Pontuações positivas dos participantes
+            int[] pontuacao = new int[10];
+            int[] nova_lista = new int[10];
+            int j = 0; // será o índice da nova lista gerada
+
+            for (int i = 0; i < 10; i++)
+            {
+                pontuacao[i] = Convert.ToInt16(Console.ReadLine());
+                if (pontuacao[i] >= 10)
+                {
+                    nova_lista[j] = pontuacao[i];
+                    j++;
+                }
+            }
+
+            Console.WriteLine("Nova lista gerada com as notas positivas: ");
+            for (int i = 0; i < 10; i++)
+            {
+                if (nova_lista[i] == 0)
+                    continue;
+                else
+                    Console.Write(nova_lista[i] + " ");
+            }
+        }
+    }
+}

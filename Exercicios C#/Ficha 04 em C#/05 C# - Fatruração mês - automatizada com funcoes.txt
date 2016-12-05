@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication8
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 05 C# - Fatruração mês - automatizada
+            string[] mes = new string[12] {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro",
+                                             "Outubro", "Novembro", "Dezembro"};
+            int[] faturacao = new int[12];
+            int maior = 0, menor = 0;
+            for (int i = 0; i < 12; i++)
+            {
+                Console.SetCursorPosition(10, 10);
+                Console.Write("Faturação de {0}:               ", mes[i]);
+                Console.SetCursorPosition(33, 10);
+                faturacao[i] = Convert.ToInt16(Console.ReadLine());
+            } 
+
+            // Função Max() e Min() que verificar o valor máximo e mínimo em um array
+            maior = faturacao.Max();
+            menor = faturacao.Min();
+
+            // Função IndexOf que retorna o índice do valor especificado
+            int pos = Array.IndexOf(faturacao, maior);
+
+            // Diz qual foi o maior e menor faturação para o usuário
+            Console.WriteLine("Mês de maior faturação: {0}, que faturou {1}", mes[pos], maior);
+            pos = Array.IndexOf(faturacao, menor);
+            Console.WriteLine("Mês de menor faturação: {0}, que faturou {1}", mes[pos], menor);
+            Console.ReadLine();
+        }
+    }
+}

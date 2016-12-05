@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 04 C# - Converter tempo em segundos para horas, minutos e segundos
+            // Exempl: 8053s = 2h + 14m + 13s
+            int tempo;
+            int h, m, s;
+            tempo = Convert.ToInt16(Console.ReadLine());
+            h = tempo / 3600;
+            m = (tempo - (h * 3600)) / 60;
+            s = (tempo - (h * 3600)) - (m * 60);
+            Console.WriteLine(tempo + " segundos = " + h + "h " + m + "m " + s + "s ");
+            Console.ReadLine();
+        }
+    }
+}

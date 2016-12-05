@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 03 C# - Matriz n por m e numeros aleatórios
+            Console.WriteLine("Indique a ordem da matriz: ");
+            int ordem = Convert.ToInt16(Console.ReadLine());
+
+            //Console.WriteLine("Indique o numero de colunas da matriz: ");
+            //int coluna = Convert.ToInt16(Console.ReadLine());
+
+            int[,] matriz = new int[ordem, ordem]; // declaração de uma matriz bidimensional
+
+            Random numero_randomico = new Random(); // declaração da variável randomica
+            Console.WriteLine("\n\nMatriz ({0}x{1}): ", ordem, ordem);
+            int temp = 0;
+            for (int i = 0; i < ordem; i++) // percorrer linhas
+            {
+                for (int j = 0; j < ordem; j++) // percorrer colunas
+                {
+                    matriz[i, j] = numero_randomico.Next(1, ordem * ordem);
+
+                    Console.SetCursorPosition(j * 7, 6 + i * 2); // variar a posição da linha e coluna
+                    Console.WriteLine(matriz[i, j]);
+                    temp = 5 + i * 2;
+                }
+                // OBS: Setposition precende sempre um readline ou writeline
+            }
+
+            Console.WriteLine("\n\nTransposta da Matriz ");
+            for (int i = 0; i < ordem; i++)
+            {
+                for (int j = 0; j < ordem; j++)
+                {
+                    Console.SetCursorPosition(j * 7, (temp + 6) + i * 2);
+                    Console.WriteLine(matriz[j, i]);
+                }
+            }
+            Console.WriteLine();
+            //Console.ReadKey();
+        }
+    }
+}

@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExerciciosCSharp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 03 - Questão 03 | Dia, mês e ano por extenso
+            int dia, mes = 0, ano;
+            Console.Write("Dia: ");
+            dia = Convert.ToInt16(Console.ReadLine());
+            // INTRODUÇÃO DO MES ATE QUE COLOQUE UM MÊS EXISTENTE
+            while (mes < 1 || mes > 12)
+            {
+                Console.Write("Mês: ");
+                mes = Convert.ToInt16(Console.ReadLine());
+            }
+            Console.Write("Ano: ");
+            ano = Convert.ToInt16(Console.ReadLine());
+
+            string mesExtenso = "";
+            switch (mes)
+            {
+                case 1:
+                    mesExtenso = "Janeiro";
+                    break;
+                case 2:
+                    mesExtenso = "Fevereiro";
+                    break;
+                case 3:
+                    mesExtenso = "Março";
+                    break;
+                case 4:
+                    mesExtenso = "Abril";
+                    break;
+                case 5:
+                    mesExtenso = "Maio";
+                    break;
+                case 6:
+                    mesExtenso = "Junho";
+                    break;
+                case 7:
+                    mesExtenso = "Julho";
+                    break;
+                case 8:
+                    mesExtenso = "Agosto";
+                    break;
+                case 9:
+                    mesExtenso = "Setembro";
+                    break;
+                case 10:
+                    mesExtenso = "Outubro";
+                    break;
+                case 11:
+                    mesExtenso = "Novembro";
+                    break;
+                case 12:
+                    mesExtenso = "Dezembro";
+                    break;
+                default:
+                    break;
+            }
+            Console.WriteLine("Data em extenso: {0} de {1} de {2}", dia, mesExtenso, ano);
+        }
+    }
+}

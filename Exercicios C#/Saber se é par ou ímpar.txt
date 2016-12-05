@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ficha1Q09
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Programa que diz se o número é par ou ímpar
+            Console.Clear();
+            Console.WriteLine("Número ");
+            int numero = int.Parse(Console.ReadLine());
+            int resto = numero % 2;
+            
+            if (resto == 0)
+            {
+                Console.WriteLine("O número {0} é par.", numero);
+            }
+            else
+            {
+                Console.WriteLine("O número {0} é ímpar.", numero);
+            }
+            Console.ReadLine();
+        }
+    }
+}

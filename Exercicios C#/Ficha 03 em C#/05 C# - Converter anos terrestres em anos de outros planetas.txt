@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExerciciosCSharp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficha 03 - Questão 05 | Converter anos terrestres em anos de outros planetas
+            Console.WriteLine("Conversão de anos terrestes em anos de outros planetas.\n");
+            Console.WriteLine("PLANETA               DIAS TERRESTRES");
+            Console.WriteLine(" 1 - Mercúrio         88");
+            Console.WriteLine(" 2 - Vénus            225");
+            Console.WriteLine(" 3 - Terra            365");
+            Console.WriteLine(" 4 - Marte            687");
+            Console.WriteLine(" 5 - Júpiter          4330");
+            Console.WriteLine(" 6 - Saturno          10752");
+
+            Console.Write("Anos terrestres: ");
+            int anosTerrestres = Convert.ToInt16(Console.ReadLine());
+            Console.Write("Planeta: ");
+            int planeta = Convert.ToInt16(Console.ReadLine());
+
+            switch (planeta)
+            {
+                case 1:
+                    Console.WriteLine("Anos em Mercúrio: " + Math.Round((anosTerrestres * 365 / 88.0), 2));
+                    break;
+                case 2:
+                    Console.WriteLine("Anos em Vénus: " + Math.Round((anosTerrestres * 365 / 225.0), 2));
+                    break;
+                case 3:
+                    Console.WriteLine("Anos em Terra: " + Math.Round((anosTerrestres * 365 / 365.0), 2));
+                    break;
+                case 4:
+                    Console.WriteLine("Anos em Marte: " + Math.Round((anosTerrestres * 365 / 687.0), 2));
+                    break;
+                case 5:
+                    Console.WriteLine("Anos em Júpiter: " + Math.Round((anosTerrestres * 365 / 4330.0), 2));
+                    break;
+                case 6:
+                    Console.WriteLine("Anos em Saturno: " + Math.Round((anosTerrestres * 365 / 10752.0), 2));
+                    break;
+                default:
+                    Console.WriteLine("Planeta inválido!");
+                    break;
+            }
+        }
+    }
+}

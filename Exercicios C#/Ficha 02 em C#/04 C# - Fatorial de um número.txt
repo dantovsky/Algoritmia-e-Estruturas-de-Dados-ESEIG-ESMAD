@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 04 C# - Fatorial de um número
+            int num = 0;
+            int fatorial = 1;
+            Console.WriteLine("Digite um número para saber o seu fatorial: ");
+            num = Convert.ToInt16(Console.ReadLine());
+
+            // Exceção: 0! = 1 >> mas como fatorial já é iniciado = 1
+            // e não vai verificar para entrar no for quando num = 0
+            // então resulta que fatorial = 1
+            for (int i = 1; i <= num; i++)
+            {
+                fatorial = fatorial * i;
+            }
+
+            Console.WriteLine("Fatorial de {0} = {1}", num, fatorial);
+        }
+    }
+}

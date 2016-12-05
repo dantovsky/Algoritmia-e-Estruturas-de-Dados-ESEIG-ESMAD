@@ -1,0 +1,103 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Ficheiros em C# | Programa simples para criação e consulta de ficheiro, com registo de alunos
+            char opcao = ' ';
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("MENU ALUNOS\n");
+                Console.WriteLine("1 - Registar Aluno");
+                Console.WriteLine("2 - Consultar Alunos");
+                Console.WriteLine("0 - SAIR\n");
+
+                Console.Write("Opção: ");
+                opcao = Convert.ToChar(Console.ReadLine());
+
+                switch (opcao)
+                {
+                    case '1':
+                        registoAluno();
+                        break;
+                    case '2':
+                        consultalAlunos();
+                        break;
+                    default:
+                        if (opcao != '0')
+                            Console.Write("Opção inválida!");
+                        break;
+                }
+
+            } while (opcao != '0');
+
+        }
+        //------------------------
+        // 1 - REGISTAR UM ALUNO
+        //------------------------
+        static void registoAluno()
+        {
+            Console.Clear();
+            Console.WriteLine("Cadastro de Novo Aluno\n");
+            Console.Write("Número: ");
+            int num = Convert.ToInt16(Console.ReadLine());
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine();
+            Console.Write("Turma: ");
+            string turma = Console.ReadLine();
+
+            // Gravação dos dados no ficheiro
+            string ficheiro = @"alunos.txt";
+            StreamWriter sw;
+            if (File.Exists(ficheiro) == true)
+            {
+                sw = File.AppendText(ficheiro);
+            }
+            else
+            {
+                sw = File.CreateText(ficheiro);
+            }
+            string linha = num.ToString() + ";" + nome + ";" + turma;
+            sw.WriteLine(linha);
+            sw.Close();
+        }
+
+        //------------------------
+        // 2 - CONSULTA ALUNOS
+        //------------------------
+        static void consultalAlunos()
+        {
+            Console.Clear();
+            string ficheiro = @"alunos.txt";
+
+            StreamReader sr;
+            if (File.Exists(ficheiro) == true)
+            {
+                Console.WriteLine("Número\t\tNome\t\tTurma");
+                sr = File.OpenText(ficheiro);
+                string linha = "";
+                while ((linha = sr.ReadLine()) != null)
+                {
+                    string[] campos = new string[3];
+                    campos = linha.Split(';');
+                    Console.WriteLine("{0}\t\t{1}\t\t{2}", campos[0], campos[1], campos[2]);
+                }
+                sr.Close();
+            }
+            else
+            {
+                Console.WriteLine("Não existe nenhum ficheiro.");
+            }
+            Console.ReadLine();
+        }
+    }
+}

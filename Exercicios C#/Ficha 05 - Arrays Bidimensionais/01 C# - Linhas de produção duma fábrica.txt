@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
+
+namespace Exercicios
+{
+    class Program
+    {       
+        static void Main(string[] args)
+        {
+            // Ficha 05 - Questão 01
+            int linhaProducao = 0;
+            int maquina = 0;
+            int producaoMin = int.MaxValue;
+            int soma = 0;
+            Console.WriteLine("MATRIZ 3x4\n");
+            int[,] matriz = new int[3, 4] { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Console.Write("Máquina {0} da {1}ª linha de produção: ", j + 1, i + 1);
+                    matriz[i, j] = Convert.ToInt16(Console.ReadLine());
+                    soma = soma + matriz[i, j];
+                    if (matriz[i, j] < producaoMin)
+                    {
+                        producaoMin = matriz[i, j];
+                        linhaProducao = i+1;
+                        maquina = j+1;
+                    }
+                }
+                Console.WriteLine("\n");
+            }
+            //----------------------------- Como obter o Min() num array two-dimensional --------------------------------
+            int menorProducao = matriz.Cast<int>().Min();
+            // http://stackoverflow.com/questions/3049240/obtaining-the-min-and-max-of-a-two-dimensional-array-using-linq
+            //-----------------------------------------------------------------------------------------------------------
+            Console.WriteLine("A máquina com menor produção foi a máquina {0} da {1}ª linha de produção: ",maquina,linhaProducao);
+            Console.WriteLine("A produção da máquina foi de {0} unidades.", producaoMin);
+            Console.WriteLine("A produção total = {0}", soma);
+            // Console.ReadLine();
+        } // Main()
+    }
+}

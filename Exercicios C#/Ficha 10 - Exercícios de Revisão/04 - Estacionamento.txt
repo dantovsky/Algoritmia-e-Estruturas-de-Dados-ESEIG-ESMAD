@@ -1,0 +1,144 @@
+//-------------------------------------------------
+// Questão 04
+//-------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        // Questão 4 | Teste 2014/15
+        // Feito por Dante Marinho, 07/12/2015
+
+        // **********************************************************
+        //                       VARIAVEIS GLOBAIS                  *
+        // **********************************************************
+        public class Global
+        {
+            // CRIACAO DA MATRIZ 3x5
+            public static int[,] parque = new int[3, 5];
+        }
+        // **********************************************************
+        // *             Main() -> Programa prinicipal              *
+        // **********************************************************
+        static void Main(string[] args)
+        {
+            int opcao;
+
+            bool erro = true;           // IMPLEMENTACAO TRY ... CATCH
+            while (erro == true)        // IMPLEMENTACAO TRY ... CATCH
+            {                           // IMPLEMENTACAO TRY ... CATCH
+                try                     // IMPLEMENTACAO TRY ... CATCH
+                {                       // IMPLEMENTACAO TRY ... CATCH
+                    do
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Questão 4 | Teste 2014/15 | Dante Marinho" +
+                            "\n\n~ MENU ~\n\n" +
+                            "1 - Entrada de veículo\n" +
+                            "2 - Saída de carro\n" +
+                            "3 - Estado do Parque\n" +
+                            "0 - Sair do programa\n\n"
+                            );
+                        Console.Write("Opção: . . . ");
+                        opcao = Convert.ToInt16(Console.ReadLine());
+                        switch (opcao)
+                        {
+                            case 1:
+                                // **************************** OPCAO 1 ******************************
+                                int cont = 0;
+                                int lugar_i = 0, lugar_j = 0;
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    bool flag = false;
+                                    for (int j = 0; j < 5; j++)
+                                    {
+
+                                        if (cont == 14 && Global.parque[i, j] == 1)
+                                        {
+                                            Console.WriteLine("Parque completo!");
+                                            Thread.Sleep(500);
+                                        }
+                                        else if (Global.parque[i, j] == 0)
+                                        {
+                                            Global.parque[i, j] = 1;
+                                            flag = true;
+                                            lugar_i = i;
+                                            lugar_j = j;
+                                            cont++;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            cont++;
+                                        }
+                                    }
+                                    if (flag)
+                                        break;
+                                }
+                                if (cont < 14)
+                                    Console.WriteLine("\nFoi ocupado a {0} posição da {1} fila no parque.", lugar_j + 1, lugar_i + 1);
+                                Thread.Sleep(500);
+                                //Console.ReadLine();
+                                break;
+                            case 2:
+                                // **************************** OPCAO 2 | Saída de carro ****************************** 
+                                Console.Write("\nIndique a fila do carro que irá sair (1 a 3) : ");
+                                int fila = Convert.ToInt16(Console.ReadLine());
+                                Console.Write("Indique a posição do estacionamento (1 a 5) :  ");
+                                int posicao = Convert.ToInt16(Console.ReadLine());
+
+                                if (Global.parque[fila - 1, posicao - 1] == 0)
+                                {
+                                    Console.Write("\n::MENSAGEM:: Este estacionamento já estava vago...");
+                                    Thread.Sleep(1000);
+                                }
+                                else
+                                {
+                                    Global.parque[fila - 1, posicao - 1] = 0;
+                                    Console.Write("\n::MENSAGEM:: Saiu um carro do estacionamento");
+                                    Thread.Sleep(1000);
+                                }
+                                break;
+                            case 3:
+                                // **************************** OPCAO 3 ****************************** 
+                                int contaCarros = 0;
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    for (int j = 0; j < 5; j++)
+                                    {
+                                        Console.SetCursorPosition(j * 3, 12 + i * 3);
+                                        Console.WriteLine(Global.parque[i, j]);
+                                        if (Global.parque[i, j] == 1)
+                                            contaCarros++;
+                                    }
+                                }
+                                Console.WriteLine("\nLugares ocupados: {0} \nLugares livres: {1}", contaCarros, (15 - contaCarros));
+                                Console.ReadLine();
+                                break;
+
+                            default:
+                                if (opcao != 0)
+                                    Console.WriteLine("Opção inválida!");
+                                Thread.Sleep(500);
+                                break;
+                        }
+                    } while (opcao != 0);
+                    erro = false;                   // IMPLEMENTACAO TRY ... CATCH
+                }                                   // IMPLEMENTACAO TRY ... CATCH
+                catch (System.Exception ex)         // IMPLEMENTACAO TRY ... CATCH
+                {                                   // IMPLEMENTACAO TRY ... CATCH
+                    Console.WriteLine(ex.Message);  // IMPLEMENTACAO TRY ... CATCH
+                }                                   // IMPLEMENTACAO TRY ... CATCH
+            }                                       // IMPLEMENTACAO TRY ... CATCH
+
+            // Console.ReadKey();
+        }
+    }
+}
